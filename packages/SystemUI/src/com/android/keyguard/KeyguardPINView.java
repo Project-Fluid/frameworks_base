@@ -235,6 +235,7 @@ public class KeyguardPINView extends KeyguardPinBasedInputView {
 
     private void runQuickUnlock(Boolean matched) {
         if (matched) {
+            mPasswordEntry.setEnabled(false);
             mCallback.reportUnlockAttempt(userId, true, 0);
             mCallback.dismiss(true, userId);
             resetPasswordText(true, true);
