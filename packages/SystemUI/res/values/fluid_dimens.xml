@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 
+ <!--
      Copyright (C) 2020 Fluid
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,16 +13,9 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <!-- Max visible notification icons -->
-    <integer name="config_maxVisibleNotificationIcons">4</integer>
-    <integer name="config_maxVisibleNotificationIconsOnLock">5</integer>
-
-    <!-- Burn in protection -->
-    <bool name="config_statusBarBurnInProtection">false</bool>
-    <integer name="config_shift_interval">60</integer>
-
-</resources> 
+-->
+<resources>
+    <!-- Burn-in protection -->
+    <dimen name="horizontal_max_swift">3.0dp</dimen>
+    <dimen name="vertical_max_swift">1.0dp</dimen>
+</resources>
