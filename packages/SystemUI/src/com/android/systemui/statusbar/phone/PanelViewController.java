@@ -188,6 +188,7 @@ public abstract class PanelViewController {
     private final TouchHandler mTouchHandler;
 
     protected abstract void onExpandingFinished();
+    protected boolean mDoubleTapToSleepEnabled;
 
     protected void onExpandingStarted() {
     }
@@ -1313,7 +1314,7 @@ public abstract class PanelViewController {
                         onTrackingStarted();
                     }
                     if (isFullyCollapsed() && !mHeadsUpManager.hasPinnedHeadsUp()
-                            && !mStatusBar.isBouncerShowing()) {
+                            && !mStatusBar.isBouncerShowing() && !mDoubleTapToSleepEnabled) {
                         startOpening(event);
                     }
                     break;
