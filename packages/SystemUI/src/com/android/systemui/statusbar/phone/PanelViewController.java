@@ -151,6 +151,8 @@ public abstract class PanelViewController {
     protected final KeyguardStateController mKeyguardStateController;
     protected final SysuiStatusBarStateController mStatusBarStateController;
 
+    protected boolean mDoubleTapToSleepEnabled;
+
     protected void onExpandingFinished() {
         mBar.onExpandingFinished();
     }
@@ -401,7 +403,7 @@ public abstract class PanelViewController {
             if (mUpdateFlingOnLayout) {
                 mUpdateFlingVelocity = vel;
             }
-        } else if (!mStatusBar.isBouncerShowing()) {
+        } else if (!mStatusBar.isBouncerShowing() && !mDoubleTapToSleepEnabled) {
             boolean expands = onEmptySpaceClick(mInitialTouchX);
             onTrackingStopped(expands);
         }
