@@ -37,6 +37,7 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -68,7 +69,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 public class QSFooterImpl extends FrameLayout implements QSFooter,
-        OnClickListener {
+        OnClickListener, OnLongClickListener {
 
     private static final String TAG = "QSFooterImpl";
 
@@ -137,6 +138,7 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         mSettingsButton = findViewById(R.id.settings_button);
         mSettingsContainer = findViewById(R.id.settings_button_container);
         mSettingsButton.setOnClickListener(this);
+        mSettingsButton.setOnLongClickListener(this);
 
         mActionsContainer = findViewById(R.id.qs_footer_actions_container);
         mEditContainer = findViewById(R.id.qs_footer_actions_edit_container);
@@ -355,6 +357,21 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
                 startSettingsActivity();
             }
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v == mSettingsButton) {
+            startFluidCustomisation();
+        }
+        return false;
+    }
+
+    private void startFluidCustomisation() {
+        Intent nIntent = new Intent(Intent.ACTION_MAIN);
+        nIntent.setClassName("com.android.settings",
+            "com.android.settings.Settings$FluidCustomisationActivity");
+        mActivityStarter.startActivity(nIntent, true);
     }
 
     private void startSettingsActivity() {
