@@ -4579,6 +4579,12 @@ public final class Settings {
          */
         public static final String STATUSBAR_CLOCK_DATE_FORMAT = "statusbar_clock_date_format";
 
+        /**
+         * Bottom brightness slider
+         * @hide
+         */
+        public static final String QS_BOTTOM_BRIGHTNESS = "qs_bottom_brightness";
+
         /** @hide */
         public static final Validator STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR = ANY_STRING_VALIDATOR;
 
