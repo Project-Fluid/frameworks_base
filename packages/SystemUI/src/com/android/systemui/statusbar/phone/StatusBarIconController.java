@@ -19,6 +19,7 @@ import static android.app.StatusBarManager.DISABLE_NONE;
 
 import static com.android.systemui.statusbar.phone.StatusBarIconHolder.TYPE_ICON;
 import static com.android.systemui.statusbar.phone.StatusBarIconHolder.TYPE_MOBILE;
+import static com.android.systemui.statusbar.phone.StatusBarIconHolder.TYPE_NETWORK_TRAFFIC;
 import static com.android.systemui.statusbar.phone.StatusBarIconHolder.TYPE_WIFI;
 
 import android.content.Context;
@@ -49,6 +50,7 @@ import com.android.systemui.statusbar.StatusIconDisplayable;
 import com.android.systemui.statusbar.phone.StatusBarSignalPolicy.MobileIconState;
 import com.android.systemui.statusbar.phone.StatusBarSignalPolicy.WifiIconState;
 import com.android.systemui.tuner.TunerService;
+import com.android.systemui.statusbar.policy.StatusBarNetworkTraffic;
 import com.android.systemui.util.Utils.DisableStateTracker;
 
 import java.util.List;
@@ -268,6 +270,9 @@ public interface StatusBarIconController {
 
                 case TYPE_MOBILE:
                     return addMobileIcon(index, slot, holder.getMobileState());
+
+                case TYPE_NETWORK_TRAFFIC:
+                    return addNetworkTraffic(index, slot);
             }
 
             return null;
@@ -291,6 +296,12 @@ public interface StatusBarIconController {
             if (mIsInDemoMode) {
                 mDemoStatusIcons.addDemoWifiView(state);
             }
+            return view;
+        }
+
+        protected StatusBarNetworkTraffic addNetworkTraffic(int index, String slot) {
+            StatusBarNetworkTraffic view = onCreateNetworkTraffic(slot);
+            mGroup.addView(view, index, onCreateLayoutParams());
             return view;
         }
 
@@ -318,6 +329,11 @@ public interface StatusBarIconController {
 
         private StatusBarMobileView onCreateStatusBarMobileView(String slot) {
             StatusBarMobileView view = StatusBarMobileView.fromContext(mContext, slot);
+            return view;
+        }
+
+        private StatusBarNetworkTraffic onCreateNetworkTraffic(String slot) {
+            StatusBarNetworkTraffic view = new StatusBarNetworkTraffic(mContext);
             return view;
         }
 
