@@ -155,4 +155,5 @@ interface IStatusBarService
      * Fluid
      */
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
 }

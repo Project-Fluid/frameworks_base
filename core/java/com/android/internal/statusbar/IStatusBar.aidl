@@ -235,4 +235,6 @@ oneway interface IStatusBar
      * Fluid
      */
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
+
 }
