@@ -296,6 +296,10 @@
     <protected-broadcast android:name="com.google.android.systemui.smartspace.EXPIRE_EVENT"/>
     <protected-broadcast android:name="com.google.android.systemui.smartspace.CLICK_EVENT"/>
 
+    <!-- VPN Tile -->
+    <uses-permission android:name="android.permission.MAINLINE_NETWORK_STACK" />
+    <uses-permission android:name="android.permission.NETWORK_STACK" />
+
     <application
         android:name=".SystemUIApplication"
         android:persistent="true"
