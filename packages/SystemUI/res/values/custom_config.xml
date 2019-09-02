@@ -12,6 +12,9 @@
     <!-- Allow devices to use unordinary cutout overlays -->
     <bool name="config_customCutout">false</bool>
 
+    <!-- Max visible status icons -->
+    <integer name="config_maxVisibleStatusIcons">7</integer>
+
     <!-- Whether the binned brightness sensor reports a value of 0 on proximity
          near events -->
     <bool name="doze_brightness_sensor_reports_proximity" translatable="false">true</bool>
