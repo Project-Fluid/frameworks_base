@@ -5166,6 +5166,30 @@ public final class Settings {
          * @hide
          */
         public static final String STOCK_STATUSBAR_IN_HIDE = "stock_statusbar_in_hide";
+        
+        /*
+         * Number of qs columns on landscape orientation
+         * @hide
+         */
+        public static final String QS_LAYOUT_COLUMNS_LANDSCAPE = "qs_layout_columns_landscape";
+
+         /**
+         * Number of qs columns on portrait orientation
+         * @hide
+         */
+        public static final String QS_LAYOUT_COLUMNS = "qs_layout_columns";
+
+        /**
+         * Whether to display qs tile titles in the qs panel
+         * @hide
+         */
+        public static final String QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";
+
+        /**
+         * Number of qs rows
+         * @hide
+         */
+        public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
@@ -5310,6 +5334,10 @@ public final class Settings {
             PRIVATE_SETTINGS.add(FINGERPRINT_SUCCESS_VIB);
             PRIVATE_SETTINGS.add(DISPLAY_CUTOUT_MODE);
             PRIVATE_SETTINGS.add(STOCK_STATUSBAR_IN_HIDE);
+            PRIVATE_SETTINGS.add(QS_LAYOUT_COLUMNS_LANDSCAPE);
+            PRIVATE_SETTINGS.add(QS_LAYOUT_COLUMNS);
+            PRIVATE_SETTINGS.add(QS_TILE_TITLE_VISIBILITY);
+            PRIVATE_SETTINGS.add(QS_LAYOUT_ROWS);
         }
 
         /**
