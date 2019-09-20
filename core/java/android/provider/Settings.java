@@ -5041,6 +5041,12 @@ public final class Settings {
         public static final String POCKET_JUDGE = "pocket_judge";
 
         /**
+         * Whether to inverse keys in navigation bar
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_INVERSE = "navigation_bar_inverse";
+
+        /**
          * Whether to show media player in QS
          * @hide
          */

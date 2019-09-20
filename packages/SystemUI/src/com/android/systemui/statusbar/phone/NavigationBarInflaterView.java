@@ -170,6 +170,12 @@ public class NavigationBarInflaterView extends FrameLayout
         super.onDetachedFromWindow();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        updateLayoutInversion();
+    }
+
     public void onLikelyDefaultLayoutChange() {
 
         // Reevaluate new layout
@@ -278,6 +284,23 @@ public class NavigationBarInflaterView extends FrameLayout
                 true /* landscape */, false /* start */);
 
         updateButtonDispatchersCurrentView();
+    }
+
+    private void updateLayoutInversion() {
+        boolean inverse = Settings.System.getIntForUser(
+                mContext.getContentResolver(),
+                Settings.System.NAVIGATION_BAR_INVERSE, 0,
+                UserHandle.USER_CURRENT) == 1;
+        if (inverse) {
+            Configuration config = mContext.getResources().getConfiguration();
+            if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
+            } else {
+                setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            }
+        } else {
+            setLayoutDirection(View.LAYOUT_DIRECTION_INHERIT);
+        }
     }
 
     private void addGravitySpacer(LinearLayout layout) {
@@ -507,6 +530,9 @@ public class NavigationBarInflaterView extends FrameLayout
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAVIGATION_BAR_ARROW_KEYS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_INVERSE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         void stop() {
@@ -518,6 +544,9 @@ public class NavigationBarInflaterView extends FrameLayout
             if (uri.equals(Settings.System.getUriFor(
                     Settings.System.NAVIGATION_BAR_ARROW_KEYS))) {
                 onLikelyDefaultLayoutChange();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_INVERSE))) {
+                updateLayoutInversion();
             }
         }
     }
