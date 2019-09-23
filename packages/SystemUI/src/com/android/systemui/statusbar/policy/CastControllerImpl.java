@@ -182,10 +182,6 @@ public class CastControllerImpl implements CastController {
         synchronized (mProjectionLock) {
 
             if (mProjection != null && mProjection.getPackageName().equals(
-                    RecorderConstants.APP_PACKAGE_NAME)){
-                mProjection = null;
-            }
-            if (mProjection != null && mProjection.getPackageName().equals(
                     StitchImageUtility.STITCHIMAGE_APP_PACKAGE_NAME)){
                 mProjection = null;
             }
