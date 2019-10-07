@@ -90,5 +90,6 @@ public class SystemSettings {
         Settings.System.VOLUME_BUTTON_MUSIC_CONTROL,
         Settings.System.USE_OLD_MOBILETYPE,
         Settings.System.ACCENT_COLOR,
+        Settings.System.DOZE_ON_CHARGE,
     };
 }
