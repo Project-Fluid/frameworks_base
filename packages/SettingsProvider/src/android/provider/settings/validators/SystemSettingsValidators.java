@@ -225,6 +225,7 @@ public class SystemSettingsValidators {
                     }
                 });
         VALIDATORS.put(System.NAVIGATION_BAR_INVERSE, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.NAVBAR_LAYOUT_VIEWS, ANY_STRING_VALIDATOR); // TODO: write a peoper validator
         VALIDATORS.put(System.QS_MEDIA_PLAYER, BOOLEAN_VALIDATOR);
         VALIDATORS.put(System.NAVIGATION_BAR_ARROW_KEYS, BOOLEAN_VALIDATOR);
     }

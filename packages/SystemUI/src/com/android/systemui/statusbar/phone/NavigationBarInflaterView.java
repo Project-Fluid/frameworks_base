@@ -54,7 +54,6 @@ public class NavigationBarInflaterView extends FrameLayout
 
     private static final String TAG = "NavBarInflater";
 
-    public static final String NAV_BAR_VIEWS = "sysui_nav_bar";
     public static final String NAV_BAR_LEFT = "sysui_nav_bar_left";
     public static final String NAV_BAR_RIGHT = "sysui_nav_bar_right";
 
@@ -85,6 +84,9 @@ public class NavigationBarInflaterView extends FrameLayout
     private static final String ABSOLUTE_SUFFIX = "A";
     private static final String ABSOLUTE_VERTICAL_CENTERED_SUFFIX = "C";
 
+    public static final String NAV_BAR_VIEWS = "system:" +
+            Settings.System.NAVBAR_LAYOUT_VIEWS;
+
     protected LayoutInflater mLayoutInflater;
     protected LayoutInflater mLandscapeInflater;
 
@@ -100,6 +102,7 @@ public class NavigationBarInflaterView extends FrameLayout
 
     private boolean mIsVertical;
     private boolean mAlternativeOrder;
+    private boolean mUsingCustomLayout;
 
     private OverviewProxyService mOverviewProxyService;
     private int mNavBarMode = NAV_BAR_MODE_3BUTTON;
@@ -155,6 +158,7 @@ public class NavigationBarInflaterView extends FrameLayout
     @Override
     public void onNavigationModeChanged(int mode) {
         mNavBarMode = mode;
+        onLikelyDefaultLayoutChange();
     }
 
     @Override
@@ -176,7 +180,22 @@ public class NavigationBarInflaterView extends FrameLayout
         updateLayoutInversion();
     }
 
+    public void setNavigationBarLayout() {
+        String layoutValue = Settings.System.getStringForUser(
+                mContext.getContentResolver(),
+                Settings.System.NAVBAR_LAYOUT_VIEWS,
+                UserHandle.USER_CURRENT);
+        if (layoutValue == null) return;
+        if (!mCurrentLayout.equals(layoutValue)) {
+            mUsingCustomLayout = layoutValue != null;
+            clearViews();
+            inflateLayout(layoutValue);
+        }
+    }
+
     public void onLikelyDefaultLayoutChange() {
+        // Don't override custom layouts
+        if (mUsingCustomLayout) return;
 
         // Reevaluate new layout
         final String newValue = getDefaultLayout();
@@ -533,6 +552,9 @@ public class NavigationBarInflaterView extends FrameLayout
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.NAVIGATION_BAR_INVERSE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVBAR_LAYOUT_VIEWS),
+                    false, this, UserHandle.USER_ALL);
         }
 
         void stop() {
@@ -547,6 +569,9 @@ public class NavigationBarInflaterView extends FrameLayout
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.NAVIGATION_BAR_INVERSE))) {
                 updateLayoutInversion();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.NAVBAR_LAYOUT_VIEWS))) {
+                setNavigationBarLayout();
             }
         }
     }
