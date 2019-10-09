@@ -4678,6 +4678,12 @@ public final class Settings {
          * @hide
          */
         public static final String NETWORK_TRAFFIC_ARROW = "network_traffic_arrow";
+		
+        /**
+         * What size to show for network traffic indicator in statusbar
+         * @hide
+         */
+         public static final String NETWORK_TRAFFIC_FONT_SIZE = "network_traffic_font_size";
 
         /**
          * Screenrecord: video bitrate
@@ -4897,6 +4903,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_STATE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_TYPE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
+            PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_FONT_SIZE);
         }
 
         /**
