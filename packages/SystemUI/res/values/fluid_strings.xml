@@ -22,4 +22,7 @@
     <string name="global_action_restart_bootloader">Bootloader</string>
     <string name="global_action_restart_ui">SystemUI</string>
 
+    <!-- Screenrecord -->
+    <string name="screenrecord_stopdot_label">Show stop dot</string>
+    <string name="global_action_screenshot_cust">Screenshot/Rec</string>
 </resources>
