@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2019-2020 The Evolution X Project
-    Copyright (C) 2020 ProjectTitanium
-    
+    Copyright (C) 2020 Fluid
+
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -17,5 +16,9 @@
 -->
 
 <resources>
+    <!-- ScreenCord -->
     <dimen name="screenrecord_dot_size">48dp</dimen>
+
+    <!-- Qs visibility -->
+    <dimen name="qs_tile_height_wo_label">64dp</dimen>
 </resources>
