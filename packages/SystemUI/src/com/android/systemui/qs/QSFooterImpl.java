@@ -307,13 +307,9 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     @VisibleForTesting
     public void onDetachedFromWindow() {
         setListening(false);
-<<<<<<< HEAD
         if (mBrightnessMirrorController != null) {
             mBrightnessMirrorController.removeCallback(this);
         }
-        mContext.getContentResolver().unregisterContentObserver(mDeveloperSettingsObserver);
-=======
->>>>>>> 84ea731e1f3... SystemUI: Remove showing version in QS
         super.onDetachedFromWindow();
     }
 
