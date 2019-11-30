@@ -94,5 +94,6 @@ public class SystemSettings {
         Settings.System.NAVBAR_LAYOUT_VIEWS,
         Settings.System.QS_MEDIA_PLAYER,
         Settings.System.NAVIGATION_BAR_ARROW_KEYS,
+        Settings.System.STATUS_BAR_BATTERY_STYLE,
     };
 }

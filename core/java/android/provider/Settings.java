@@ -5064,6 +5064,11 @@ public final class Settings {
          */
         public static final String NAVIGATION_BAR_ARROW_KEYS = "navigation_bar_arrow_keys";
 
+        /**
+         * Style of battery to show.
+         * @hide
+         */
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
