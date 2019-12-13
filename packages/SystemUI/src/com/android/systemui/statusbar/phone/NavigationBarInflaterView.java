@@ -18,9 +18,15 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_3BUTTON;
 
 import android.annotation.Nullable;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -98,11 +104,14 @@ public class NavigationBarInflaterView extends FrameLayout
     private OverviewProxyService mOverviewProxyService;
     private int mNavBarMode = NAV_BAR_MODE_3BUTTON;
 
+    private CustomSettingsObserver mCustomSettingsObserver;
+
     public NavigationBarInflaterView(Context context, AttributeSet attrs) {
         super(context, attrs);
         createInflaters();
         mOverviewProxyService = Dependency.get(OverviewProxyService.class);
         mNavBarMode = Dependency.get(NavigationModeController.class).addListener(this);
+        mCustomSettingsObserver = new CustomSettingsObserver(new Handler());
     }
 
     @VisibleForTesting
@@ -135,7 +144,8 @@ public class NavigationBarInflaterView extends FrameLayout
 
     protected String getDefaultLayout() {
         final int defaultResource = QuickStepContract.isGesturalMode(mNavBarMode)
-                ? R.string.config_navBarLayoutHandle
+                ? (showDpadArrowKeys() ? R.string.config_navBarLayoutHandleArrows
+                : R.string.config_navBarLayoutHandle)
                 : mOverviewProxyService.shouldShowSwipeUpUI()
                         ? R.string.config_navBarLayoutQuickstep
                         : R.string.config_navBarLayout;
@@ -148,8 +158,15 @@ public class NavigationBarInflaterView extends FrameLayout
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        mCustomSettingsObserver.observe();
+    }
+
+    @Override
     protected void onDetachedFromWindow() {
         Dependency.get(NavigationModeController.class).removeListener(this);
+        mCustomSettingsObserver.stop();
         super.onDetachedFromWindow();
     }
 
@@ -463,12 +480,46 @@ public class NavigationBarInflaterView extends FrameLayout
 
     private void clearAllChildren(ViewGroup group) {
         for (int i = 0; i < group.getChildCount(); i++) {
-            ((ViewGroup) group.getChildAt(i)).removeAllViews();
+            if (group.getChildAt(i).getId() != R.id.dpad_group) {
+                ((ViewGroup) group.getChildAt(i)).removeAllViews();
+            }
         }
     }
 
     private static float convertDpToPx(Context context, float dp) {
         return dp * context.getResources().getDisplayMetrics().density;
+    }
+
+    private boolean showDpadArrowKeys() {
+        return Settings.System.getIntForUser(getContext().getContentResolver(),
+                Settings.System.NAVIGATION_BAR_ARROW_KEYS, 0, UserHandle.USER_CURRENT) != 0;
+    }
+
+    private class CustomSettingsObserver extends ContentObserver {
+        ContentResolver resolver;
+
+        CustomSettingsObserver(Handler handler) {
+            super(handler);
+            resolver = mContext.getContentResolver();
+        }
+
+        void observe() {
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_ARROW_KEYS),
+                    false, this, UserHandle.USER_ALL);
+        }
+
+        void stop() {
+            resolver.unregisterContentObserver(this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_ARROW_KEYS))) {
+                onLikelyDefaultLayoutChange();
+            }
+        }
     }
 
     public void dump(PrintWriter pw) {
