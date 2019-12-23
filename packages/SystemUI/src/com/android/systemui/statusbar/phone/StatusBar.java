@@ -3868,7 +3868,7 @@ public class StatusBar extends SystemUI implements
         return mDeviceInteractive;
     }
 
-    private SbSettingsObserver mSbSettingsObserver = new SbSettingsObserver(mHandler);
+    private SbSettingsObserver mSbSettingsObserver = new SbSettingsObserver(mMainHandler);
     private class SbSettingsObserver extends ContentObserver {
         SbSettingsObserver(Handler handler) {
             super(handler);
