@@ -83,4 +83,8 @@
     <color name="biometric_dialog_accent">#ff80cbc4</color> <!-- light teal -->
     <color name="biometric_dialog_error">#fff28b82</color> <!-- red 300 -->
 
+    <color name="volume_background_tint">#121212</color>
+
+    <color name="recents_dismiss_all_background_color">@color/volume_background_tint</color>
+    <color name="recents_dismiss_all_icon_color">@android:color/white</color>
 </resources>

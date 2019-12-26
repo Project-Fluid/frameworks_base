@@ -204,4 +204,11 @@
 
     <color name="GM2_yellow_500">#FFFBBC04</color>
     <color name="GM2_green_500">#FF34A853</color>
+
+
+    <color name="volume_background_tint">#f2f2f2</color>
+
+    <color name="recents_dismiss_all_background_color">@android:color/white</color>
+    <color name="recents_dismiss_all_icon_color">#8a000000</color>
+
 </resources>
