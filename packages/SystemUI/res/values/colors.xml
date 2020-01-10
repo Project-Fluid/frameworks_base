@@ -228,4 +228,6 @@
     <color name="brightness_slider_background">#FFFFFF</color>
     <color name="brightness_slider_icons">#FFFFFF</color>
 
+    <color name="qs_drag_handle_color">#66e5e5e5</color>
+
 </resources>
