@@ -686,6 +686,7 @@ public class NotificationStackScrollLayout extends ViewGroup implements ScrollAd
             mCornerRadius = newRadius;
             invalidate();
         }
+        onUiModeChanged();
         reinflateViews();
     }
 
