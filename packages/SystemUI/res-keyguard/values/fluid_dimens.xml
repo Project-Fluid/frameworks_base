@@ -20,4 +20,7 @@
 
     <!-- Custom clock -->
     <dimen name="custom_clock_left_padding">50dp</dimen>
+
+    <!-- Recognizing fingerprint animation -->
+    <dimen name="fod_animation_size">280dp</dimen>
 </resources>
