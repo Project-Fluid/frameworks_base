@@ -595,6 +595,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     private final SysuiStatusBarStateController mStatusBarStateController =
             (SysuiStatusBarStateController) Dependency.get(StatusBarStateController.class);
 
+    private boolean mUnexpandedQSBrightnessSlider;
+
     private final KeyguardUpdateMonitorCallback mUpdateCallback =
             new KeyguardUpdateMonitorCallback() {
                 @Override
@@ -1760,6 +1762,23 @@ public class StatusBar extends SystemUI implements DemoMode,
     @Override
     public void onColorsChanged(ColorExtractor extractor, int which) {
         updateTheme();
+    }
+
+    public void updateBrightnessSliderOverlay() {
+        boolean UnexpandedQSBrightnessSlider = Settings.System.getIntForUser(mContext.getContentResolver(),
+                        Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 0, UserHandle.USER_CURRENT) == 1;
+        if (mUnexpandedQSBrightnessSlider != UnexpandedQSBrightnessSlider){
+            mUnexpandedQSBrightnessSlider = UnexpandedQSBrightnessSlider;
+            mUiOffloadThread.submit(() -> {
+                final IOverlayManager mOverlayManager = IOverlayManager.Stub.asInterface(
+                                ServiceManager.getService(Context.OVERLAY_SERVICE));
+                try {
+                    mOverlayManager.setEnabled("com.extendedui.overlay.brightnessslider",
+                                mUnexpandedQSBrightnessSlider, mLockscreenUserManager.getCurrentUserId());
+                } catch (RemoteException ignored) {
+                }
+            });
+        }
     }
 
     @Nullable
@@ -4774,6 +4793,32 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     public NotificationGutsManager getGutsManager() {
         return mGutsManager;
+    }
+
+    private SbSettingsObserver mSbSettingsObserver = new SbSettingsObserver(mHandler);
+    private class SbSettingsObserver extends ContentObserver {
+        SbSettingsObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            ContentResolver resolver = mContext.getContentResolver();
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+		    Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED),
+		    false, this, UserHandle.USER_ALL);
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            super.onChange(selfChange, uri);
+            if (uri.equals(Settings.System.getUriFor(Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED))) {
+		    updateBrightnessSliderOverlay();
+            }
+        }
+
+        public void update() {
+        // do nothing
+        }
     }
 
     @Subcomponent

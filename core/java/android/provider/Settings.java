@@ -4585,6 +4585,16 @@ public final class Settings {
          */
         public static final String QS_BOTTOM_BRIGHTNESS = "qs_bottom_brightness";
 
+        /**
+         * Display cutout
+         * @hide
+         */
+        public static final String BRIGHTNESS_SLIDER_QS_UNEXPANDED = "brightness_slider_qs_unexpanded";
+
+        /** @hide */
+        private static final Validator BRIGHTNESS_SLIDER_QS_UNEXPANDED_VALIDATOR = new
+                SettingsValidators.InclusiveIntegerRangeValidator(0, 1);
+
         /** @hide */
         public static final Validator STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR = ANY_STRING_VALIDATOR;
 
@@ -4937,6 +4947,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_FONT_SIZE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_VIEW_LOCATION);
+            PRIVATE_SETTINGS.add(BRIGHTNESS_SLIDER_QS_UNEXPANDED);
         }
 
         /**
@@ -5039,6 +5050,7 @@ public final class Settings {
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_STYLE, STATUSBAR_CLOCK_DATE_STYLE_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_FORMAT, STATUSBAR_CLOCK_DATE_FORMAT_VALIDATOR);
             VALIDATORS.put(STATUSBAR_CLOCK_DATE_POSITION, STATUSBAR_CLOCK_DATE_POSITION_VALIDATOR);
+            VALIDATORS.put(BRIGHTNESS_SLIDER_QS_UNEXPANDED, BRIGHTNESS_SLIDER_QS_UNEXPANDED_VALIDATOR);
         }
 
         /**
