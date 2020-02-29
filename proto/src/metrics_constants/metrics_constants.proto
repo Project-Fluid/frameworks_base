@@ -7437,5 +7437,8 @@ message MetricsEvent {
     // END OF AOSP CONSTANTS
 
     FLUID = 2000;
+
+    // Panel for Bluetooth
+    PANEL_BLUETOOTH = 2003;
   }
 }
