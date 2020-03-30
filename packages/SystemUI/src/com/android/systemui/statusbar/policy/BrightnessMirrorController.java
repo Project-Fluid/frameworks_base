@@ -20,7 +20,12 @@ import android.annotation.NonNull;
 import android.content.res.Resources;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.os.UserHandle;
+import android.provider.Settings;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.FrameLayout;
 
 import com.android.internal.util.Preconditions;
@@ -41,13 +46,19 @@ public class BrightnessMirrorController
     private final NotificationPanelView mNotificationPanel;
     private final ArraySet<BrightnessMirrorListener> mBrightnessMirrorListeners = new ArraySet<>();
     private final int[] mInt2Cache = new int[2];
+    private boolean mExpanded;
     private View mBrightnessMirror;
+    private ImageButton mIcon;
+    private Context mContext;
 
-    public BrightnessMirrorController(StatusBarWindowView statusBarWindow,
+    public BrightnessMirrorController(Context context, StatusBarWindowView statusBarWindow,
             @NonNull Consumer<Boolean> visibilityCallback) {
+        mContext = context;
+        mExpanded = false;
         mStatusBarWindow = statusBarWindow;
         mBrightnessMirror = statusBarWindow.findViewById(R.id.brightness_mirror);
         mNotificationPanel = statusBarWindow.findViewById(R.id.notification_panel);
+        mIcon = (ImageButton) statusBarWindow.findViewById(R.id.brightness_icon);
         mNotificationPanel.setPanelAlphaEndAction(() -> {
             mBrightnessMirror.setVisibility(View.INVISIBLE);
         });
@@ -55,6 +66,7 @@ public class BrightnessMirrorController
     }
 
     public void showMirror() {
+        updateIcon();
         mBrightnessMirror.setVisibility(View.VISIBLE);
         mVisibilityCallback.accept(true);
         mNotificationPanel.setPanelAlpha(0, true /* animate */);
@@ -104,15 +116,25 @@ public class BrightnessMirrorController
     }
 
     private void reinflate() {
+        if (mIcon != null) {
+            mIcon.setVisibility(View.GONE);
+        }
         int index = mStatusBarWindow.indexOfChild(mBrightnessMirror);
         mStatusBarWindow.removeView(mBrightnessMirror);
         mBrightnessMirror = LayoutInflater.from(mBrightnessMirror.getContext()).inflate(
                 R.layout.brightness_mirror, mStatusBarWindow, false);
+        mIcon = mBrightnessMirror.findViewById(R.id.brightness_icon);
+
         mStatusBarWindow.addView(mBrightnessMirror, index);
 
         for (int i = 0; i < mBrightnessMirrorListeners.size(); i++) {
             mBrightnessMirrorListeners.valueAt(i).onBrightnessMirrorReinflated(mBrightnessMirror);
         }
+    }
+
+    public void setExpanded(boolean expanded) {
+        mExpanded = expanded;
+        updateIcon();
     }
 
     @Override
@@ -132,5 +154,19 @@ public class BrightnessMirrorController
 
     public interface BrightnessMirrorListener {
         void onBrightnessMirrorReinflated(View brightnessMirror);
+    }
+
+    private void updateIcon() {
+        if (mIcon != null) {
+            mIcon.setVisibility(mExpanded ? View.VISIBLE : View.INVISIBLE);
+            if (!mExpanded) return;
+            boolean automatic = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL,
+                    UserHandle.USER_CURRENT) != Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL;
+            mIcon.setImageResource(automatic ?
+                    com.android.systemui.R.drawable.ic_qs_brightness_auto_on :
+                    com.android.systemui.R.drawable.ic_qs_brightness_auto_off);
+        }
     }
 }

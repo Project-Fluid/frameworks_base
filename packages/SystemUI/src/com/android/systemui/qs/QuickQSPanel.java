@@ -71,7 +71,7 @@ public class QuickQSPanel extends QSPanel {
         mDefaultMaxTiles = getResources().getInteger(R.integer.quick_qs_panel_max_columns);
         mTileLayout = new HeaderTileLayout(context);
         mTileLayout.setListening(mListening);
-        addView((View) mTileLayout, 0 /* Between brightness and footer */);
+        addView((View) mTileLayout, 0);
         super.setPadding(0, 0, 0, 0);
     }
 
@@ -133,10 +133,7 @@ public class QuickQSPanel extends QSPanel {
 
     @Override
     public void onTuningChanged(String key, String newValue) {
-        if (QS_SHOW_BRIGHTNESS.equals(key)) {
-            // No Brightness or Tooltip for you!
-            super.onTuningChanged(key, "0");
-        }
+        // Do nothing
     }
 
     @Override
