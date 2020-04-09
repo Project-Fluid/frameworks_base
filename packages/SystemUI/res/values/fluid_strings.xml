@@ -41,4 +41,6 @@
     <string name="screenrecord_video_bitrate_title">Video Bitrate</string>
     <string name="screenrecord_video_bitrate_summary">Set the video bitrate for better video quality, at the cost of a bigger file.</string>
 
+    <!-- Tuner -->
+    <string name="statusbar_items_title">Statusbar icons</string>
 </resources>
