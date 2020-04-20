@@ -43,6 +43,7 @@ import com.android.systemui.qs.tiles.HotspotTile;
 import com.android.systemui.qs.tiles.LocationTile;
 import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
+import com.android.systemui.qs.tiles.PowerShareTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenRecordTile;
 import com.android.systemui.qs.tiles.SoundTile;
@@ -90,6 +91,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<SoundTile> mSoundTileProvider;
     private final Provider<AODTile> mAODTileProvider;
     private final Provider<SyncTile> mSyncTileProvider;
+    private final Provider<PowerShareTile> mPowerShareTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
 
@@ -120,7 +122,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<CaffeineTile> caffeineTileProvider,
             Provider<SoundTile> soundTileProvider,
             Provider<AODTile> aodTileProvider,
-            Provider<SyncTile> syncTileProvider) {
+            Provider<SyncTile> syncTileProvider,
+            Provider<PowerShareTile> powerShareTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -148,6 +151,7 @@ public class QSFactoryImpl implements QSFactory {
         mSoundTileProvider = soundTileProvider;
         mAODTileProvider = aodTileProvider;
         mSyncTileProvider = syncTileProvider;
+        mPowerShareTileProvider = powerShareTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -211,6 +215,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mAODTileProvider.get();
             case "sync":
                 return mSyncTileProvider.get();
+            case "powershare":
+                return mPowerShareTileProvider.get();
         }
 
         // Custom tiles
