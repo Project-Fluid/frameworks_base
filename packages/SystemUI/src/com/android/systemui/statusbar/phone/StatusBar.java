@@ -1096,7 +1096,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private static boolean isDismissAllButtonEnabled() {
         return Settings.System.getInt(mStaticContext.getContentResolver(),
-                Settings.System.DISMISS_ALL_BUTTON, 0) != 0;
+                Settings.System.DISMISS_ALL_BUTTON, 1) != 0;
     }
 
     protected QS createDefaultQSFragment() {
