@@ -6,4 +6,6 @@
     <string name="quick_settings_tiles_extra" translatable="false">
         screenrecord
     </string>
+    <!-- Allow devices to enforce the H265 encoder for screen recordings -->
+    <bool name="config_useNewScreenRecEncoder">true</bool>
 </resources>
