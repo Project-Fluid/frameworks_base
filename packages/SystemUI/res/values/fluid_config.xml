@@ -33,4 +33,7 @@
     <bool name="doze_proximity_sensor_supported">true</bool>
 
     <string name="config_navBarLayoutHandleArrows" translatable="false">back[1.7WC];home_handle;ime_switcher[1.7WC]</string>
+
+    <!-- Whether to show VoWiFi icon in the status bar -->
+    <bool name="config_display_vowifi">true</bool>
 </resources>
