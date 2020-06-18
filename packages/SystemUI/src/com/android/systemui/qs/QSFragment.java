@@ -42,7 +42,6 @@ import com.android.systemui.SysUiServiceProvider;
 import com.android.systemui.plugins.qs.QS;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.qs.customize.QSCustomizer;
-import com.android.systemui.qs.QSFooterImpl;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.StatusBarState;
 import com.android.systemui.statusbar.notification.stack.StackStateAnimator;
@@ -78,7 +77,6 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
     private QSContainerImpl mContainer;
     private int mLayoutDirection;
     private QSFooter mFooter;
-    private QSFooterImpl mQSFooter;
     private float mLastQSExpansion = -1;
     private boolean mQsDisabled;
 
@@ -123,7 +121,6 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         mQSDetail = view.findViewById(R.id.qs_detail);
         mHeader = view.findViewById(R.id.header);
         mFooter = view.findViewById(R.id.qs_footer);
-        mQSFooter = view.findViewById(R.id.qs_footer);
         mContainer = view.findViewById(id.quick_settings_container);
 
         mQSDetail.setQsPanel(mQSPanel, mHeader, (View) mFooter);
@@ -294,11 +291,6 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
     public QSPanel getQsPanel() {
         return mQSPanel;
     }
-
-    public QSFooterImpl getQsFooter() {
-        return mQSFooter;
-    }
-
 
     public QSCustomizer getCustomizer() {
         return mQSCustomizer;

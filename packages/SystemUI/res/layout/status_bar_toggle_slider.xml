@@ -40,7 +40,7 @@
         android:paddingEnd="20dp"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
-        android:thumb="@android:color/transparent"
+        android:thumb="@drawable/ic_brightness_thumb"
         android:progressDrawable="@drawable/brightness_progress_drawable"
         android:splitTrack="false"
         />

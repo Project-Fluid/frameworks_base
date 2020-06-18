@@ -18,16 +18,16 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_gravity="center_vertical"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
-    android:background="@android:color/transparent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     style="@style/BrightnessDialogContainer">
 
     <com.android.systemui.settings.ToggleSliderView
         android:id="@+id/brightness_slider"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
         android:contentDescription="@string/accessibility_brightness"
         android:importantForAccessibility="no"
         systemui:text="@string/status_bar_settings_auto_brightness_label" />
