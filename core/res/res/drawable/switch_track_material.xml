@@ -23,6 +23,8 @@
             <corners android:radius="7dp" />
             <solid android:color="@color/white_disabled_material" />
             <size android:height="14dp" />
+            <stroke android:width="2dp"
+                    android:color="@color/switch_track_stroke" />
         </shape>
     </item>
 </layer-list>
