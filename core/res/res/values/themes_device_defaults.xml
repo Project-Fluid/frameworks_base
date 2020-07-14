@@ -75,7 +75,6 @@ easier.
         <!-- Button styles -->
         <item name="buttonCornerRadius">@dimen/config_buttonCornerRadius</item>
         <item name="buttonStyle">@style/Widget.DeviceDefault.Button</item>
-        <item name="switchStyle">@style/Widget.DeviceDefault.CompoundButton.Switch</item>
 
         <item name="buttonStyleSmall">@style/Widget.DeviceDefault.Button.Small</item>
         <item name="buttonStyleInset">@style/Widget.DeviceDefault.Button.Inset</item>
