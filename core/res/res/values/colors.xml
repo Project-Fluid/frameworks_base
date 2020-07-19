@@ -224,4 +224,10 @@
 
     <!-- Resolver/Chooser -->
     <color name="resolver_text_color_secondary_dark">#ffC4C6C6</color>
+
+    <!-- Switch Track -->
+    <color name="switch_track_disabled_white">#802f2f2f</color>
+    <color name="switch_track_stroke_disabled">#ff585858</color>
+    <color name="switch_thumb_disabled_white">#ff585858</color>
+    <color name="switch_thumb_disabled_dark">#ffececec</color>
 </resources>
