@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2015 The Android Open Source Project
-     Copyright (C) 2020 ProjectFluid
+<!-- Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,12 +18,11 @@
     <item android:gravity="center_vertical|fill_horizontal"
           android:start="4dp"
           android:end="4dp">
-        <shape android:shape="rectangle">
+        <shape android:shape="rectangle"
+               android:tint="@color/switch_track_material">
             <corners android:radius="7dp" />
-            <solid android:color="@color/switch_track_material" />
+            <solid android:color="@color/white_disabled_material" />
             <size android:height="14dp" />
-            <stroke android:width="2dp"
-                    android:color="@color/switch_track_stroke" />
         </shape>
     </item>
 </layer-list>
