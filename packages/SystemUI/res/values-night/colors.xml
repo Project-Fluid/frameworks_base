@@ -95,7 +95,7 @@
 
     <color name="qs_tile_background_color_disabled">#0fffffff</color>
 
-    <color name="brightness_slider_progress">#9B9B9D</color>
+    <color name="brightness_slider_progress">?android:attr/colorAccent</color>
     <color name="brightness_slider_background">@android:color/black</color>
-    <color name="brightness_slider_icons">@android:color/black</color>
+    <color name="brightness_slider_icons">?android:attr/colorAccent</color>
 </resources>
