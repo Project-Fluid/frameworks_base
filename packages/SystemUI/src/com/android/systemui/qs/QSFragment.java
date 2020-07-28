@@ -670,7 +670,7 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
 
         public void update() {
             mUnexpandedQSBrightnessSlider = Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 0) != 0;
+                Settings.System.BRIGHTNESS_SLIDER_QS_UNEXPANDED, 1) != 0;
             updateBrightnessSliderVisibility(mUnexpandedQSBrightnessSlider);
         }
     }
