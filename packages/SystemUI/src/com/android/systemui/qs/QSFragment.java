@@ -288,10 +288,6 @@ public class QSFragment extends LifecycleFragment implements QS, CommandQueue.Ca
         }
     }
 
-    public QSFooter getQsFooter() {
-        return mFooter;
-    }
-
     public QSPanel getQsPanel() {
         return mQSPanel;
     }

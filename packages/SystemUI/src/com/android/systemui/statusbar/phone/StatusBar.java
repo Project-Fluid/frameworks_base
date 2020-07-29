@@ -1211,7 +1211,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                             .withPlugin(QS.class)
                             .withDefault(this::createDefaultQSFragment)
                             .build());
-            mBrightnessMirrorController = new BrightnessMirrorController(mContext, mStatusBarWindow,
+            mBrightnessMirrorController = new BrightnessMirrorController(mStatusBarWindow,
                     (visible) -> {
                         mBrightnessMirrorVisible = visible;
                         updateScrimController();
@@ -1220,7 +1220,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 QS qs = (QS) f;
                 if (qs instanceof QSFragment) {
                     mQSPanel = ((QSFragment) qs).getQsPanel();
-                    ((QSFragment) qs).getQsFooter().setBrightnessMirror(mBrightnessMirrorController);
+                    mQSPanel.setBrightnessMirror(mBrightnessMirrorController);
                 }
             });
         }
