@@ -31,7 +31,7 @@ public class AccentUtils {
         try {
             String colorValue = SystemProperties.get(property, "-1");
             return "-1".equals(colorValue)
-                    ? defaultColor : colorValue.equals("ff1a73e8")
+                    ? defaultColor : colorValue.equals("ff72bbff")
                     ? defaultColor : Color.parseColor("#" + colorValue);
         } catch (Exception e) {
             Log.e(TAG, "Failed to set accent: " + e.getMessage() +
