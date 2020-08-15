@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2017 The Android Open Source Project
+<!-- 
+     Copyright (C) 2017 The Android Open Source Project
+     Copyright (C) 2020 ProjectFluid
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -31,6 +33,26 @@
     android:focusable="true"
     android:theme="@style/QSHeaderTheme">
 
+    <com.android.systemui.statusbar.policy.Clock
+        android:id="@+id/clock"
+        android:layout_width="0dip"
+        android:layout_height="0dip"
+        android:gravity="center_vertical"
+        android:layout_gravity="start|center_vertical"
+        android:visibility="gone" />
+
+    <TextClock
+        android:id="@+id/qs_clock"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_gravity="start|center_vertical"
+        android:format12Hour="h:mm"
+        android:format24Hour="kk:mm"
+        android:singleLine="true"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.QS.Status" />
+
     <com.android.systemui.statusbar.policy.DateView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -38,6 +60,7 @@
         android:layout_gravity="start|center_vertical"
         android:gravity="center_vertical"
         android:singleLine="true"
+        android:paddingStart="2dp"
         android:textAppearance="@style/TextAppearance.QS.Status"
         systemui:datePattern="@string/abbrev_wday_month_day_no_year_alarm" />
 
@@ -47,12 +70,5 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:paddingEnd="@dimen/signal_cluster_battery_padding" />
-
-    <com.android.systemui.BatteryMeterView
-        android:id="@+id/batteryRemainingIcon"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        systemui:textAppearance="@style/TextAppearance.QS.Status"
-        android:paddingEnd="2dp" />
 
 </LinearLayout>
