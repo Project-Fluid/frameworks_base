@@ -343,16 +343,22 @@
 
     <!-- The height of the quick settings footer that holds the user switcher, settings icon,
          etc. -->
-    <dimen name="qs_footer_height">48dp</dimen>
+    <dimen name="qs_footer_height">90dp</dimen>
 
     <!-- The size of each of the icon buttons in the QS footer -->
-    <dimen name="qs_footer_action_button_size">@dimen/qs_footer_height</dimen>
+    <dimen name="qs_footer_action_button_size">42dp</dimen>
+
+    <!-- The movement of brightness view when expanding QS -->
+    <dimen name="qs_footer_brightness_translation">26dp</dimen>
+
+    <!-- Brightness view padding -->
+    <dimen name="qs_footer_brightness_margin">16dp</dimen>
 
     <!-- Margins on each side of QS Footer -->
     <dimen name="qs_footer_margin">2dp</dimen>
 
     <!-- Padding on each QS Footer Icon to make the icons 20dpx20dp -->
-    <dimen name="qs_footer_icon_padding">14dp</dimen>
+    <dimen name="qs_footer_icon_padding">10dp</dimen>
 
     <!-- The padding between the notifications and the quick settings container -->
     <dimen name="qs_notification_padding">@dimen/notification_side_paddings</dimen>

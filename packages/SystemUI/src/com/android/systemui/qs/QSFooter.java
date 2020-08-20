@@ -17,6 +17,8 @@ package com.android.systemui.qs;
 
 import android.view.View;
 
+import com.android.systemui.statusbar.policy.BrightnessMirrorController;
+
 import androidx.annotation.Nullable;
 
 /**
@@ -69,6 +71,8 @@ public interface QSFooter {
      * Sets the {@link android.view.View.OnClickListener to be used on elements that expend QS.
      */
     void setExpandClickListener(View.OnClickListener onClickListener);
+
+    void setBrightnessMirror(BrightnessMirrorController c);
 
     default void disable(int state1, int state2, boolean animate) {}
 }
