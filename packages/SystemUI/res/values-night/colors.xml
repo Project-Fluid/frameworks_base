@@ -66,6 +66,9 @@
     <!-- The color of the background in the bottom part of QSCustomizer -->
     <color name="qs_customize_decoration">@color/GM2_grey_800</color>
 
+    <!-- The color of QS drag handle -->
+    <color name="qs_footer_drag_handle_color">#E0FFFFFF</color> 
+
     <!-- The color of the background in the separated list of the Global Actions menu -->
     <color name="global_actions_separated_background">@color/GM2_grey_900</color>
 

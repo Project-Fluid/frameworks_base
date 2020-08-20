@@ -39,7 +39,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,7 +80,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     private final UserInfoController mUserInfoController;
     private final DeviceProvisionedController mDeviceProvisionedController;
     private View mBrightnessView;
-    private ImageButton mBrightnessIcon;
     private SettingsButton mSettingsButton;
     protected View mSettingsContainer;
     private PageIndicator mPageIndicator;
@@ -152,8 +150,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         mBrightnessView = findViewById(R.id.brightness_slider_view);
         mBrightnessView.setVisibility(View.VISIBLE);
 
-        mBrightnessIcon = findViewById(R.id.brightness_icon);
-
         mSettingsButton = findViewById(R.id.settings_button);
         mSettingsContainer = findViewById(R.id.settings_button_container);
         mSettingsButton.setOnClickListener(this);
@@ -170,7 +166,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         ((RippleDrawable) mSettingsButton.getBackground()).setForceSoftware(true);
 
         mBrightnessController = new BrightnessController(getContext(),
-                mBrightnessIcon,
                 findViewById(R.id.brightness_slider));
 
         updateResources();
@@ -227,7 +222,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         int defSpace = mContext.getResources().getDimensionPixelOffset(R.dimen.default_gear_space);
         int bottomMargin = mContext.getResources()
                 .getDimensionPixelOffset(R.dimen.qs_footer_brightness_translation);
-        float iconSize = mBrightnessIcon.getWidth();
 
         mSettingsCogAnimator = new Builder()
                 .addFloat(mSettingsContainer, "translationX",
@@ -237,12 +231,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
         mBrightnessAnimator = new Builder()
                 .addFloat(mBrightnessView, "translationY", bottomMargin, 0)
-                .addFloat(findViewById(R.id.brightness_slider), "translationX", isLayoutRtl()
-                        ? -iconSize/2 : iconSize/2, 0)
-                .addFloat(mBrightnessMirrorController.getMirror().findViewById(R.id.brightness_slider),
-                        "translationX", isLayoutRtl() ? -iconSize/2 : iconSize/2, 0)
-                .addFloat(mBrightnessIcon, "translationX", isLayoutRtl() ? -iconSize : iconSize, 0)
-                .addFloat(mBrightnessIcon, "rotation", 120, 0)
                 .build();
 
         setExpansion(mExpansionAmount);
@@ -274,7 +262,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
                 .addFloat(mActionsContainer, "alpha", 0, 1)
                 .addFloat(mEditContainer, "alpha", 0, 1)
                 .addFloat(mDragHandle, "alpha", 1, 0, 0)
-                .addFloat(mBrightnessIcon, "alpha", 0, 1)
                 .addFloat(mPageIndicator, "alpha", 0, 1)
                 .setStartDelay(0.15f)
                 .build();

@@ -19,9 +19,17 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:layout_gravity="center_horizontal"
-    android:paddingStart="0dp"
-    android:paddingEnd="0dp"
+    android:paddingStart="@dimen/status_bar_padding_start"
+    android:paddingEnd="@dimen/status_bar_padding_end"
     style="@style/BrightnessDialogContainer">
+
+    <ImageView
+        android:id="@+id/brightness_indicator"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:padding="8dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_brightness_indicator" />
 
     <com.android.systemui.settings.ToggleSliderView
         android:id="@+id/brightness_slider"
@@ -29,20 +37,8 @@
         android:layout_height="48dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
-        android:layout_marginStart="@dimen/qs_footer_brightness_margin"
         android:contentDescription="@string/accessibility_brightness"
         android:importantForAccessibility="no"
         systemui:text="@string/status_bar_settings_auto_brightness_label" />
-
-    <com.android.keyguard.AlphaOptimizedImageButton
-        android:id="@+id/brightness_icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="-4dp"
-        android:layout_marginEnd="@dimen/qs_footer_brightness_margin"
-        android:background="@drawable/rounded_ripple"
-        android:tint="?android:attr/colorAccent"
-        android:contentDescription="@null" />
 
 </LinearLayout>
