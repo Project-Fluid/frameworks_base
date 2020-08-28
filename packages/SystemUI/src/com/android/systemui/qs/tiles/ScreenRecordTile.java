@@ -45,7 +45,7 @@ public class ScreenRecordTile extends QSTileImpl<BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.FTILES;
+        return MetricsEvent.CUSTOM_SETTINGS;
     }
 
     @Override
