@@ -62,6 +62,9 @@
     <!-- Whether device has warp charging support -->
     <bool name="config_hasWarpCharger">false</bool>
 
+    <!-- Whether device has VOOC charging support -->
+    <bool name="config_hasVoocCharger">false</bool>
+
     <!-- Certain sensor firmwares break with having a batch
          size set. By setting this to false, devices can opt
          out of setting a batch size, which fixes rotation. -->
