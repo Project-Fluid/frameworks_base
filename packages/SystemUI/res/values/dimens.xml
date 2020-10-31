@@ -78,6 +78,12 @@
     <!-- The font size for the clock in the status bar. -->
     <dimen name="status_bar_clock_size">14sp</dimen>
 
+     <!-- The font size for the clock in the qs header. -->
+    <dimen name="qs_header_clock_size">24sp</dimen>
+
+    <!-- The font size for the date in the qs header. -->
+    <dimen name="qs_header_date_size">16sp</dimen>
+
     <!-- The starting padding for the clock in the status bar. -->
     <dimen name="status_bar_clock_starting_padding">7dp</dimen>
 
