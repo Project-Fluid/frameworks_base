@@ -24,3 +24,4 @@ public class DogbinException extends Exception {
         super(message);
     }
 }
+
