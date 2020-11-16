@@ -48,22 +48,10 @@
                 android:id="@+id/carrier_group"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/qs_status_separator"
-                android:layout_gravity="end|center_vertical"
+                android:layout_marginStart="@dimen/qs_footer_padding_start"
+                android:layout_gravity="center_vertical"
                 android:focusable="false"/>
 
-            <TextView
-                android:id="@+id/build"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:focusable="true"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:textAppearance="@style/TextAppearance.QS.Status"
-                android:layout_marginEnd="4dp"
-                android:visibility="gone"/>
          </com.android.keyguard.AlphaOptimizedLinearLayout>
 
         <com.android.systemui.qs.PageIndicator
@@ -80,23 +68,6 @@
             android:layout_height="match_parent"
             android:layout_weight="@integer/qs_footer_actions_weight"
             android:gravity="center_vertical|end" >
-
-            <!-- Avatar icon (Moved to Header soon) -->
-            <com.android.systemui.statusbar.phone.MultiUserSwitch
-                android:id="@+id/multi_user_switch"
-                android:layout_width="@dimen/qs_footer_action_button_size"
-                android:layout_height="@dimen/qs_footer_action_button_size"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/ripple_drawable"
-                android:focusable="true">
-
-                <ImageView
-                    android:id="@+id/multi_user_avatar"
-                    android:layout_width="@dimen/multi_user_avatar_expanded_size"
-                    android:layout_height="@dimen/multi_user_avatar_expanded_size"
-                    android:layout_gravity="center"
-                    android:scaleType="centerInside"/>
-            </com.android.systemui.statusbar.phone.MultiUserSwitch>
 
             <!-- QS edit icon -->
             <com.android.systemui.statusbar.AlphaOptimizedImageView

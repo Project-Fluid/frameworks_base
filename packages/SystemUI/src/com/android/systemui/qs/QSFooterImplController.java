@@ -21,12 +21,12 @@ import com.android.systemui.qs.carrier.QSCarrierGroupController;
 
 import javax.inject.Inject;
 
-public class QuickStatusBarHeaderController {
-    private final QuickStatusBarHeader mView;
+public class QSFooterImplController {
+    private final QSFooterImpl mView;
     private final QSCarrierGroupController mQSCarrierGroupController;
 
-    private QuickStatusBarHeaderController(QuickStatusBarHeader view,
-            QSCarrierGroupController.Builder qsCarrierGroupControllerBuilder) {
+    private QSFooterImplController(QSFooterImpl view,
+                QSCarrierGroupController.Builder qsCarrierGroupControllerBuilder) {
         mView = view;
         mQSCarrierGroupController = qsCarrierGroupControllerBuilder
                 .setQSCarrierGroup(mView.findViewById(R.id.carrier_group))
@@ -42,20 +42,20 @@ public class QuickStatusBarHeaderController {
 
     public static class Builder {
         private final QSCarrierGroupController.Builder mQSCarrierGroupControllerBuilder;
-        private QuickStatusBarHeader mView;
+        private QSFooterImpl mView;
 
         @Inject
         public Builder(QSCarrierGroupController.Builder qsCarrierGroupControllerBuilder) {
             mQSCarrierGroupControllerBuilder = qsCarrierGroupControllerBuilder;
         }
 
-        public Builder setQuickStatusBarHeader(QuickStatusBarHeader view) {
+        public Builder setQSFooterImpl(QSFooterImpl view) {
             mView = view;
             return this;
         }
 
-        public QuickStatusBarHeaderController build() {
-            return new QuickStatusBarHeaderController(mView, mQSCarrierGroupControllerBuilder);
+        public QSFooterImplController build() {
+            return new QSFooterImplController(mView, mQSCarrierGroupControllerBuilder);
         }
     }
 }

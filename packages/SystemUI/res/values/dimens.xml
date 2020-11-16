@@ -79,10 +79,10 @@
     <dimen name="status_bar_clock_size">14sp</dimen>
 
      <!-- The font size for the clock in the qs header. -->
-    <dimen name="qs_header_clock_size">24sp</dimen>
+    <dimen name="qs_header_clock_size">24dp</dimen>
 
     <!-- The font size for the date in the qs header. -->
-    <dimen name="qs_header_date_size">16sp</dimen>
+    <dimen name="qs_header_date_size">16dp</dimen>
 
     <!-- The starting padding for the clock in the status bar. -->
     <dimen name="status_bar_clock_starting_padding">7dp</dimen>
@@ -519,7 +519,7 @@
     <dimen name="qs_dual_tile_padding_horizontal">6dp</dimen>
     <dimen name="qs_tile_padding_top">14dp</dimen>
     <dimen name="qs_tile_padding_top_large_text">4dp</dimen>
-    <dimen name="qs_tile_padding_bottom">16dp</dimen>
+    <dimen name="qs_tile_padding_bottom">8dp</dimen>
     <dimen name="qs_tile_spacing">4dp</dimen>
     <dimen name="qs_panel_padding_bottom">0dp</dimen>
     <dimen name="qs_panel_padding_top">@dimen/qs_header_tooltip_height</dimen>
@@ -1184,11 +1184,11 @@
     <dimen name="display_cutout_margin_consumption">0px</dimen>
 
     <!-- Height of the Ongoing App Ops chip -->
-    <dimen name="ongoing_appops_chip_height">32dp</dimen>
+    <dimen name="ongoing_appops_chip_height">24dp</dimen>
     <!-- Padding between background of Ongoing App Ops chip and content -->
-    <dimen name="ongoing_appops_chip_bg_padding">8dp</dimen>
+    <dimen name="ongoing_appops_chip_bg_padding">0dp</dimen>
     <!-- Side padding between background of Ongoing App Ops chip and content -->
-    <dimen name="ongoing_appops_chip_side_padding">8dp</dimen>
+    <dimen name="ongoing_appops_chip_side_padding">0dp</dimen>
     <!-- Margin between icons of Ongoing App Ops chip when QQS-->
     <dimen name="ongoing_appops_chip_icon_margin_collapsed">0dp</dimen>
     <!-- Margin between icons of Ongoing App Ops chip when QS-->

@@ -22,27 +22,27 @@ import javax.inject.Inject;
 
 public class QSContainerImplController {
     private final QSContainerImpl mView;
-    private final QuickStatusBarHeaderController mQuickStatusBarHeaderController;
+    private final QSFooterImplController mQSFooterImplController;
 
     private QSContainerImplController(QSContainerImpl view,
-            QuickStatusBarHeaderController.Builder quickStatusBarHeaderControllerBuilder) {
+            QSFooterImplController.Builder qsFooterImplControllerBuilder ) {
         mView = view;
-        mQuickStatusBarHeaderController = quickStatusBarHeaderControllerBuilder
-                .setQuickStatusBarHeader(mView.findViewById(R.id.header)).build();
+        mQSFooterImplController = qsFooterImplControllerBuilder
+                .setQSFooterImpl(mView.findViewById(R.id.qs_footer)).build();
     }
 
     public void setListening(boolean listening) {
-        mQuickStatusBarHeaderController.setListening(listening);
+        mQSFooterImplController.setListening(listening);
     }
 
     public static class Builder {
-        private final QuickStatusBarHeaderController.Builder mQuickStatusBarHeaderControllerBuilder;
+        private final QSFooterImplController.Builder mQSFooterImplControllerBuilder;
         private QSContainerImpl mView;
 
         @Inject
         public Builder(
-                QuickStatusBarHeaderController.Builder quickStatusBarHeaderControllerBuilder) {
-            mQuickStatusBarHeaderControllerBuilder = quickStatusBarHeaderControllerBuilder;
+                QSFooterImplController.Builder qsFooterImplControllerBuilder) {
+            mQSFooterImplControllerBuilder = qsFooterImplControllerBuilder;
         }
 
         public Builder setQSContainerImpl(QSContainerImpl view) {
@@ -51,7 +51,7 @@ public class QSContainerImplController {
         }
 
         public QSContainerImplController build() {
-            return new QSContainerImplController(mView, mQuickStatusBarHeaderControllerBuilder);
+            return new QSContainerImplController(mView, mQSFooterImplControllerBuilder);
         }
     }
 }

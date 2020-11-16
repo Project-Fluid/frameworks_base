@@ -33,7 +33,7 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:paddingStart="@dimen/status_bar_left_clock_starting_padding"
-        android:paddingEnd="@dimen/status_bar_left_clock_end_padding" >
+        android:paddingEnd="@dimen/status_bar_left_clock_starting_padding" >
 
         <RelativeLayout
             android:layout_width="0dip"
@@ -60,29 +60,56 @@
                 systemui:datePattern="@string/abbrev_wday_month_day_no_year_alarm" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical|end"
             android:gravity="end|center_vertical"
+            android:orientation="vertical"
             android:theme="@style/QQSHeaderTheme" >
 
-            <com.android.systemui.statusbar.phone.StatusIconContainer
-                android:id="@+id/statusIcons"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/signal_cluster_battery_padding" />
+                android:paddingTop="8dp"
+                android:layout_gravity="end">
 
-            <com.android.systemui.BatteryMeterView
-                android:id="@+id/batteryRemainingIcon"
-                android:layout_toEndOf="@id/statusIcons"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                systemui:textAppearance="@style/TextAppearance.QS.Header" />
+                <com.android.systemui.statusbar.phone.MultiUserSwitch
+                    android:id="@+id/multi_user_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <include layout="@layout/ongoing_privacy_chip" android:visibility="gone" />
-        </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/multi_user_avatar"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"/>
+                </com.android.systemui.statusbar.phone.MultiUserSwitch>
+
+                <include layout="@layout/ongoing_privacy_chip" android:layout_toEndOf="@id/multi_user_switch" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:gravity="end">
+
+                <com.android.systemui.statusbar.phone.StatusIconContainer
+                    android:id="@+id/statusIcons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/signal_cluster_battery_padding" />
+
+                <com.android.systemui.BatteryMeterView
+                    android:id="@+id/batteryRemainingIcon"
+                    android:layout_toEndOf="@id/statusIcons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    systemui:textAppearance="@style/TextAppearance.QS.Header" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

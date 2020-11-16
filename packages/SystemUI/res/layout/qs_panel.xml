@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:elevation="4dp"
+        android:paddingTop="16dp"
         android:paddingBottom="5dp">
         <View
             android:layout_width="48dp"

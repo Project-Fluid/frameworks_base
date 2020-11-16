@@ -57,7 +57,6 @@ import com.android.systemui.R;
 import com.android.systemui.R.dimen;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.qs.TouchAnimator.Builder;
-import com.android.systemui.statusbar.phone.MultiUserSwitch;
 import com.android.systemui.statusbar.phone.SettingsButton;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.UserInfoController;
@@ -69,12 +68,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 public class QSFooterImpl extends FrameLayout implements QSFooter,
-        OnClickListener, OnUserInfoChangedListener {
+        OnClickListener {
 
     private static final String TAG = "QSFooterImpl";
 
     private final ActivityStarter mActivityStarter;
-    private final UserInfoController mUserInfoController;
     private final DeviceProvisionedController mDeviceProvisionedController;
     private SettingsButton mSettingsButton;
     protected View mSettingsContainer;
@@ -90,9 +88,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     private boolean mExpanded;
 
     private boolean mListening;
-
-    protected MultiUserSwitch mMultiUserSwitch;
-    private ImageView mMultiUserAvatar;
 
     protected TouchAnimator mFooterAnimator;
     private float mExpansionAmount;
@@ -116,11 +111,10 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
     @Inject
     public QSFooterImpl(@Named(VIEW_CONTEXT) Context context, AttributeSet attrs,
-            ActivityStarter activityStarter, UserInfoController userInfoController,
+            ActivityStarter activityStarter,
             DeviceProvisionedController deviceProvisionedController) {
         super(context, attrs);
         mActivityStarter = activityStarter;
-        mUserInfoController = userInfoController;
         mDeviceProvisionedController = deviceProvisionedController;
     }
 
@@ -128,7 +122,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     public QSFooterImpl(Context context, AttributeSet attrs) {
         this(context, attrs,
                 Dependency.get(ActivityStarter.class),
-                Dependency.get(UserInfoController.class),
                 Dependency.get(DeviceProvisionedController.class));
     }
 
@@ -145,9 +138,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         mSettingsButton = findViewById(R.id.settings_button);
         mSettingsContainer = findViewById(R.id.settings_button_container);
         mSettingsButton.setOnClickListener(this);
-
-        mMultiUserSwitch = findViewById(R.id.multi_user_switch);
-        mMultiUserAvatar = mMultiUserSwitch.findViewById(R.id.multi_user_avatar);
 
         mActionsContainer = findViewById(R.id.qs_footer_actions_container);
         mEditContainer = findViewById(R.id.qs_footer_actions_edit_container);
@@ -281,7 +271,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
             return;
         }
         mListening = listening;
-        updateListeners();
     }
 
     @Override
@@ -318,7 +307,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     }
 
     private void updateClickabilities() {
-        mMultiUserSwitch.setClickable(mMultiUserSwitch.getVisibility() == View.VISIBLE);
         mEdit.setClickable(mEdit.getVisibility() == View.VISIBLE);
         mSettingsButton.setClickable(mSettingsButton.getVisibility() == View.VISIBLE);
     }
@@ -328,7 +316,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
         mSettingsContainer.findViewById(R.id.tuner_icon).setVisibility(
                 TunerService.isTunerEnabled(mContext) ? View.VISIBLE : View.INVISIBLE);
         final boolean isDemo = UserManager.isDeviceInDemoMode(mContext);
-        mMultiUserSwitch.setVisibility(showUserSwitcher() ? View.VISIBLE : View.INVISIBLE);
         mEditContainer.setVisibility(isDemo || !mExpanded ? View.INVISIBLE : View.VISIBLE);
         mSettingsButton.setVisibility(isDemo || !mExpanded ? View.INVISIBLE : View.VISIBLE);
 
@@ -336,22 +323,13 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     }
 
     private boolean showUserSwitcher() {
-        return mExpanded && mMultiUserSwitch.isMultiUserEnabled();
-    }
-
-    private void updateListeners() {
-        if (mListening) {
-            mUserInfoController.addCallback(this);
-        } else {
-            mUserInfoController.removeCallback(this);
-        }
+        return mExpanded;
     }
 
     @Override
     public void setQSPanel(final QSPanel qsPanel) {
         mQsPanel = qsPanel;
         if (mQsPanel != null) {
-            mMultiUserSwitch.setQsPanel(qsPanel);
             mQsPanel.setFooterPageIndicator(mPageIndicator);
         }
     }
@@ -402,18 +380,5 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     private void startSettingsActivity() {
         mActivityStarter.startActivity(new Intent(android.provider.Settings.ACTION_SETTINGS),
                 true /* dismissShade */);
-    }
-
-    @Override
-    public void onUserInfoChanged(String name, Drawable picture, String userAccount) {
-        if (picture != null &&
-                UserManager.get(mContext).isGuestUser(KeyguardUpdateMonitor.getCurrentUser()) &&
-                !(picture instanceof UserIconDrawable)) {
-            picture = picture.getConstantState().newDrawable(mContext.getResources()).mutate();
-            picture.setColorFilter(
-                    Utils.getColorAttrDefaultColor(mContext, android.R.attr.colorForeground),
-                    Mode.SRC_IN);
-        }
-        mMultiUserAvatar.setImageDrawable(picture);
     }
 }
