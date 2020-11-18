@@ -21,7 +21,7 @@
 
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
-    <color name="background_floating_material_dark">@color/material_grey_800</color>
+    <color name="background_floating_material_dark">#FF121212</color>
     <color name="background_floating_material_light">@color/white</color>
 
     <color name="primary_material_dark">@color/material_grey_900</color>
