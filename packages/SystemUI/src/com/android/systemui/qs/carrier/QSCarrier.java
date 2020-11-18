@@ -85,7 +85,7 @@ public class QSCarrier extends LinearLayout {
     public boolean updateState(CellSignalState state) {
         if (Objects.equals(state, mLastSignalState)) return false;
         mLastSignalState = state;
-        mMobileGroup.setVisibility(state.visible ? View.VISIBLE : View.GONE);
+        mMobileGroup.setVisibility(View.GONE);
         if (state.visible) {
             mMobileRoaming.setVisibility(state.roaming ? View.VISIBLE : View.GONE);
             ColorStateList colorStateList = ColorStateList.valueOf(
