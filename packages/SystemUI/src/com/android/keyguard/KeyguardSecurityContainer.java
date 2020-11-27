@@ -33,6 +33,7 @@ import android.app.AlertDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Insets;
 import android.graphics.Rect;
@@ -517,8 +518,9 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
 
         // Consume bottom insets because we're setting the padding locally (for IME and navbar.)
         int inset;
-        int minBottomMargin = getResources().getDimensionPixelSize(
-                R.dimen.kg_security_container_min_bottom_margin);
+        boolean fodEquipped = mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT);
+        int minBottomMargin = mUpdateMonitor.isFingerprintDetectionRunning() && fodEquipped ? getResources().getDimensionPixelSize(
+                R.dimen.kg_security_container_min_bottom_margin) : 0;
 
         if (sNewInsetsMode == NEW_INSETS_MODE_FULL) {
             int bottomInset = insets.getInsetsIgnoringVisibility(systemBars()).bottom;
@@ -982,4 +984,3 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
         mSecurityViewFlipper.showUsabilityHint();
     }
 }
-
