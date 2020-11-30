@@ -70,6 +70,7 @@ import com.android.internal.logging.UiEventLogger;
 import com.android.internal.logging.UiEventLoggerImpl;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.internal.widget.LockPatternUtils;
+import com.android.internal.util.custom.FodUtils;
 import com.android.keyguard.KeyguardSecurityModel.SecurityMode;
 import com.android.settingslib.utils.ThreadUtils;
 import com.android.systemui.Dependency;
@@ -136,6 +137,7 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
     private float mLastTouchY = -1;
     private int mActivePointerId = -1;
     private boolean mIsDragging;
+    private boolean mHasFod;
     private float mStartTouchY = -1;
     private boolean mDisappearAnimRunning;
 
@@ -262,6 +264,7 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
         mKeyguardStateController = Dependency.get(KeyguardStateController.class);
         mSecondaryLockScreenController = new AdminSecondaryLockScreenController(context, this,
                 mUpdateMonitor, mCallback, new Handler(Looper.myLooper()));
+        mHasFod = FodUtils.hasFodSupport(mContext);
     }
 
     public void setSecurityCallback(SecurityCallback callback) {
@@ -519,8 +522,10 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
         // Consume bottom insets because we're setting the padding locally (for IME and navbar.)
         int inset;
         boolean fodEquipped = mContext.getPackageManager().hasSystemFeature(PackageManager.FEATURE_FINGERPRINT);
-        int minBottomMargin = mUpdateMonitor.isFingerprintDetectionRunning() && fodEquipped ? getResources().getDimensionPixelSize(
-                R.dimen.kg_security_container_min_bottom_margin) : 0;
+        int minBottomMargin = mHasFod && !mUpdateMonitor.userNeedsStrongAuth() &&
+                mUpdateMonitor.isFingerprintDetectionRunning() ?
+                        getResources().getDimensionPixelSize(
+                                R.dimen.kg_security_container_min_bottom_margin) : 0;
 
         if (sNewInsetsMode == NEW_INSETS_MODE_FULL) {
             int bottomInset = insets.getInsetsIgnoringVisibility(systemBars()).bottom;
