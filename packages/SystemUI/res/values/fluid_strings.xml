@@ -93,4 +93,5 @@
     <!-- Tuner -->
     <string name="status_bar_data_saver">Data saver</string>
     <string name="status_bar_vpn">VPN</string>
+    <string name="fluid_status_bar_battery">Battery</string>
 </resources>

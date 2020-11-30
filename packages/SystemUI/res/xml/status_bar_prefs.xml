@@ -74,6 +74,10 @@
         android:key="airplane"
         android:title="@string/status_bar_airplane" />
 
+    <com.android.systemui.tuner.StatusBarSwitch
+        android:key="battery"
+        android:title="@string/fluid_status_bar_battery" />
+
     <!-- <com.android.systemui.tuner.BatteryPreference
         android:title="@string/battery"
         android:summary="%s"
