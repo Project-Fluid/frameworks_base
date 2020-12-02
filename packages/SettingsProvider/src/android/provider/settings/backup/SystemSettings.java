@@ -96,5 +96,8 @@ public class SystemSettings {
         Settings.System.NAVIGATION_BAR_ARROW_KEYS,
         Settings.System.STATUS_BAR_BATTERY_STYLE,
         Settings.System.SHOW_BATTERY_PERCENT_INSIDE,
+        Settings.System.VIBRATE_ON_CONNECT,
+        Settings.System.VIBRATE_ON_CALLWAITING,
+        Settings.System.VIBRATE_ON_DISCONNECT,
     };
 }
