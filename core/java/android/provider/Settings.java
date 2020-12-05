@@ -4908,12 +4908,6 @@ public final class Settings {
         public static final String USE_OLD_MOBILETYPE = "use_old_mobiletype";
 
         /**
-         * Accent Color
-         * @hide
-         */
-        public static final String ACCENT_COLOR = "accent_color";
-
-        /**
          * Force full screen for devices with cutout
          * @hide
          */
@@ -5149,7 +5143,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(VOLUME_ROCKER_WAKE);
             PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
             PRIVATE_SETTINGS.add(USE_OLD_MOBILETYPE);
-            PRIVATE_SETTINGS.add(ACCENT_COLOR);
             PRIVATE_SETTINGS.add(FORCE_FULLSCREEN_CUTOUT_APPS);
             PRIVATE_SETTINGS.add(LOCKSCREEN_BATTERY_INFO);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK);
