@@ -890,12 +890,6 @@ public final class DefaultPermissionGrantPolicy {
         // Google dialer
         grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.dialer", userId, PHONE_PERMISSIONS,
                 CONTACTS_PERMISSIONS, SMS_PERMISSIONS);
-
-        // Flipendo
-        grantSystemFixedPermissionsToSystemPackage(pm,
-                getDefaultProviderAuthorityPackage("com.google.android.flipendo", userId),
-                userId, SUSPEND_APP_PERMISSIONS);
-
         // Mediascanner
         grantSystemFixedPermissionsToSystemPackage(pm,
                 getDefaultProviderAuthorityPackage("com.android.providers.media.MediaProvider", userId), userId,
