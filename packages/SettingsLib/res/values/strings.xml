@@ -1376,6 +1376,4 @@
 
     <!-- Name of the 3.5mm and usb audio device. [CHAR LIMIT=50] -->
     <string name="media_transfer_wired_usb_device_name">Wired headphone</string>
-    
-    <string name="status_deep_sleep">DeepSleep status</string>
 </resources>
