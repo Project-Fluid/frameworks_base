@@ -77,7 +77,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
     private SettingsButton mSettingsButton;
     protected View mSettingsContainer;
     private PageIndicator mPageIndicator;
-    private TextView mBuildText;
     private boolean mShouldShowBuildText;
 
     private boolean mQsDisabled;
@@ -141,7 +140,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
 
         mActionsContainer = findViewById(R.id.qs_footer_actions_container);
         mEditContainer = findViewById(R.id.qs_footer_actions_edit_container);
-        mBuildText = findViewById(R.id.build);
 
         mCarrierGroup = findViewById(R.id.carrier_group);
 
@@ -155,24 +153,6 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
                 oldBottom) -> updateAnimator(right - left));
         setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
         updateEverything();
-        //setBuildText();
-    }
-
-    private void setBuildText() {
-        /*if (mBuildText == null) return;
-        if (DevelopmentSettingsEnabler.isDevelopmentSettingsEnabled(mContext)) {
-            mBuildText.setText(mContext.getString(
-                    com.android.internal.R.string.bugreport_status,
-                    Build.VERSION.RELEASE_OR_CODENAME,
-                    Build.ID));
-            // Set as selected for marquee before its made visible, then it won't be announced when
-            // it's made visible.
-            mBuildText.setSelected(true);
-            mShouldShowBuildText = true;
-        } else {
-            mShouldShowBuildText = false;
-            mBuildText.setSelected(false);
-        }*/
     }
 
     private void updateAnimator(int width) {
