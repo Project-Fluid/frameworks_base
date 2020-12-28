@@ -342,9 +342,6 @@ public class FODCircleView extends ImageView {
         mUpdateMonitor = Dependency.get(KeyguardUpdateMonitor.class);
         mUpdateMonitor.registerCallback(mMonitorCallback);
         
-        mIsRecognizingAnimEnabled = Settings.System.getInt(mContext.getContentResolver(),
-            Settings.System.FOD_RECOGNIZING_ANIMATION, 0) != 0;
-
         mFODAnimation = new FODAnimation(context, mPositionX, mPositionY);
     }
 
@@ -553,6 +550,9 @@ public class FODCircleView extends ImageView {
         ThreadUtils.postOnBackgroundThread(() -> {
             dispatchShow();
         });
+
+        mIsRecognizingAnimEnabled = Settings.System.getInt(mContext.getContentResolver(),
+            Settings.System.FOD_RECOGNIZING_ANIMATION, 0) != 0;
 
         setVisibility(View.VISIBLE);
         animate().withStartAction(() -> mFading = true)
