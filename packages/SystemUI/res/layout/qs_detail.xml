@@ -30,7 +30,7 @@
     <View
         android:id="@+id/qs_detail_top_space"
         android:layout_width="match_parent"
-        android:layout_height="@*android:dimen/qs_detail_offset_height"
+        android:layout_height="@dimen/qs_detail_offset_height"
         android:background="@android:color/transparent" />
 
     <com.android.keyguard.AlphaOptimizedLinearLayout
