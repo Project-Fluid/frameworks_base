@@ -1,0 +1,4 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Headline / Body font Oneplus Slate / Oneplus Slate overlay -->
+    <string name="font_slate_slate_overlay" translatable="false">Oneplus Slate / Oneplus Slate</string>
+</resources>
