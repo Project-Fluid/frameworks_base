@@ -16,6 +16,7 @@ package com.android.systemui.statusbar.phone;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_3BUTTON;
+import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL;
 
 import android.annotation.Nullable;
 import android.content.ContentResolver;
@@ -182,7 +183,9 @@ public class NavigationBarInflaterView extends FrameLayout
         updateLayoutInversion();
     }
 
-    public void setNavigationBarLayout() {
+    private void setNavigationBarLayout() {
+        // Don't apply a custom layout when using gestural navigation
+        if (mNavBarMode == NAV_BAR_MODE_GESTURAL) return;
         String layoutValue = Settings.System.getStringForUser(
                 mContext.getContentResolver(),
                 Settings.System.NAVBAR_LAYOUT_VIEWS,
@@ -196,8 +199,8 @@ public class NavigationBarInflaterView extends FrameLayout
     }
 
     public void onLikelyDefaultLayoutChange() {
-        // Don't override custom layouts
-        if (mUsingCustomLayout) return;
+        // Don't override custom layouts unless we're using full gestures
+        if (mUsingCustomLayout && mNavBarMode != NAV_BAR_MODE_GESTURAL) return;
 
         // Reevaluate new layout
         final String newValue = getDefaultLayout();
