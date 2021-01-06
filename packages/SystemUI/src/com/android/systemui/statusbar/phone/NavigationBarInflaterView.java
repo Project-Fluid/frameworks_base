@@ -132,6 +132,8 @@ public class NavigationBarInflaterView extends FrameLayout
         inflateChildren();
         clearViews();
         inflateLayout(getDefaultLayout());
+        setNavigationBarLayout();
+        updateLayoutInversion();
     }
 
     private void inflateChildren() {
