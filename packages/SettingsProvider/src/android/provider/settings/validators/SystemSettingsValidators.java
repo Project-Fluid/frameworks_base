@@ -232,5 +232,6 @@ public class SystemSettingsValidators {
                         return true;
                     }
                 });
+        VALIDATORS.put(System.QS_MEDIA_PLAYER, BOOLEAN_VALIDATOR);
     }
 }
