@@ -78,7 +78,8 @@
                 <com.android.systemui.statusbar.phone.MultiUserSwitch
                     android:id="@+id/multi_user_switch"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="8dp">
 
                     <ImageView
                         android:id="@+id/multi_user_avatar"
@@ -87,15 +88,16 @@
                         android:layout_gravity="center"/>
                 </com.android.systemui.statusbar.phone.MultiUserSwitch>
 
-                     <com.android.systemui.statusbar.policy.NetworkTraffic
-                        android:id="@+id/network_traffic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical|end"
-                        android:layout_gravity="center_vertical|end"
-                        android:visibility="gone" />
+                <com.android.systemui.statusbar.policy.NetworkTraffic
+                    android:id="@+id/network_traffic"
+                    android:layout_toEndOf="@id/multi_user_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|end"
+                    android:layout_gravity="center_vertical|end"
+                    android:visibility="gone" />
 
-                <include layout="@layout/ongoing_privacy_chip" android:layout_toEndOf="@id/multi_user_switch" />
+                <include layout="@layout/ongoing_privacy_chip" android:layout_toEndOf="@id/network_traffic" />
             </RelativeLayout>
 
             <RelativeLayout
