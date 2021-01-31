@@ -31,15 +31,15 @@
 
     <!-- Caffeine QS Tile -->
     <string name="quick_settings_caffeine_label">Кофеин</string>
-    <string name="quick_settings_caffeine_label_off">Включен</string>
+    <string name="quick_settings_caffeine_label_off">Выключен</string>
     <string name="accessibility_quick_settings_caffeine_off">Кофеин выключен</string>
     <string name="accessibility_quick_settings_caffeine_on">Кофеин включен</string>
 
     <!-- Sound QS Tile -->
     <string name="quick_settings_sound_label">Звук</string>
-    <string name="quick_settings_sound_ring">Звонок</string>
+    <string name="quick_settings_sound_ring">Звук включен</string>
     <string name="quick_settings_sound_vibrate">Вибрация</string>
-    <string name="quick_settings_sound_mute">Не беспокоить</string>
+    <string name="quick_settings_sound_mute">Звук выключен</string>
 
     <!-- AOD QS tile -->
     <string name="quick_settings_aod_label">AOD</string>
@@ -73,6 +73,6 @@
     <string name="global_action_restart_ui">Интерфейс системы</string>
 
     <!-- Screenrecord -->
-    <string name="screenrecord_stopdot_label">Показывать точку остановки\nУдерживайте, чтобы переместить его</string>
-    <string name="screenrecord_lowquality_label">Низкое качество для меньшего размера файла</string>
+    <string name="screenrecord_stopdot_label">Показывать точку остановки\nУдерживайте, чтобы переместить её</string>
+    <string name="screenrecord_lowquality_label">Снизить качество для меньшего размера файла</string>
 </resources>
