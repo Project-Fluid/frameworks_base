@@ -19,6 +19,5 @@
 <resources>
 
     <color name="qs_tile_background_color_disabled">#0fffffff</color>
-    <color name="qs_footer_drag_handle">#17FFFFFF</color>
 
 </resources>

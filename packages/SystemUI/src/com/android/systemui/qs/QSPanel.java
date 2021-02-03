@@ -175,11 +175,8 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         setOrientation(VERTICAL);
 
         addViewsAboveTiles();
-
         mMovableContentStartIndex = getChildCount();
         mRegularTileLayout = createRegularTileLayout();
-
-        addViewsBelowTiles();
 
         if (mUsingMediaPlayer) {
             mHorizontalLinearLayout = new RemeasuringLinearLayout(mContext);
@@ -221,19 +218,16 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
     }
 
-    protected void addViewsBelowTiles() {
-        mBrightnessView = LayoutInflater.from(mContext).inflate(
-            R.layout.quick_settings_brightness_dialog, this, false);
-        addView(mBrightnessView);
-        mBrightnessController = new BrightnessController(getContext(),
-                findViewById(R.id.brightness_icon), findViewById(R.id.brightness_slider), mBroadcastDispatcher);
-    }
-
     protected void addSecurityFooter() {
         mSecurityFooter = new QSSecurityFooter(this, mContext);
     }
 
     protected void addViewsAboveTiles() {
+        mBrightnessView = LayoutInflater.from(mContext).inflate(
+            R.layout.quick_settings_brightness_dialog, this, false);
+        addView(mBrightnessView);
+        mBrightnessController = new BrightnessController(getContext(),
+                findViewById(R.id.brightness_slider), mBroadcastDispatcher);
     }
 
     protected QSTileLayout createRegularTileLayout() {

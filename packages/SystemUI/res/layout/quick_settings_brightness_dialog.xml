@@ -20,16 +20,6 @@
     android:layout_gravity="center_vertical"
     style="@style/BrightnessDialogContainer">
 
-    <com.android.keyguard.AlphaOptimizedImageButton
-        android:id="@+id/brightness_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/rounded_ripple"
-        android:tint="?android:attr/colorAccent"
-        android:contentDescription="@null" />
-
     <com.android.systemui.settings.ToggleSliderView
         android:id="@+id/brightness_slider"
         android:layout_width="0dp"

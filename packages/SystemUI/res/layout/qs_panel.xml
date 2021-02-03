@@ -63,8 +63,8 @@
         android:paddingTop="16dp"
         android:paddingBottom="5dp">
         <View
-            android:layout_width="48dp"
-            android:layout_height="2dp"
+            android:layout_width="46dp"
+            android:layout_height="3dp"
             android:background="@drawable/qs_footer_drag_handle" />
     </FrameLayout>
 
