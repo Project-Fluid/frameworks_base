@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+     Copyright (C) 2020-2021 ProjectFluid
+     
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+     
+          http://www.apache.org/licenses/LICENSE-2.0
+          
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M3.3 13.61l-0.93-0.94l1.19-1.2l0.95 0.95l-1.2 1.2zm5.37-0.3v1.97H7.33v-1.97h1.34zm6.66-4.66h-2V7.3h2v1.34zM12.7 13.6l-1.2-1.19l0.95-0.95l1.2 1.2l-0.95 0.94zm0-11.26l0.94 0.94l-1.19 1.2l-0.95-0.95l1.2-1.2zM7.33 0.68h1.34v1.97H7.33V0.68zM0.67 7.31h2v1.34h-2V7.3zM3.3 2.35l1.2 1.19l-0.95 0.95l-1.2-1.2l0.95-0.94z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillType="evenOdd"
+        android:pathData="M8 5.48c-0.66 0-1.3 0.26-1.77 0.73S5.5 7.31 5.5 7.98c0 0.66 0.26 1.3 0.73 1.77s1.1 0.73 1.77 0.73c0.66 0 1.3-0.26 1.77-0.73s0.73-1.1 0.73-1.77c0-1.38-1.12-2.5-2.5-2.5zM5.17 5.15C5.92 4.4 6.94 3.98 8 3.98c2.2 0 4 1.79 4 4c0 1.06-0.42 2.08-1.17 2.83S9.06 11.98 8 11.98s-2.08-0.42-2.83-1.17S4 9.04 4 7.98S4.42 5.9 5.17 5.15z"/>
+</vector>
