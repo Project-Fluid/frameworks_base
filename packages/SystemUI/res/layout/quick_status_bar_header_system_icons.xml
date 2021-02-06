@@ -78,8 +78,7 @@
                 <com.android.systemui.statusbar.phone.MultiUserSwitch
                     android:id="@+id/multi_user_switch"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingEnd="8dp">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/multi_user_avatar"
@@ -95,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical|end"
                     android:layout_gravity="center_vertical|end"
+                    android:paddingStart="8dp"
                     android:visibility="gone" />
 
                 <include layout="@layout/ongoing_privacy_chip" android:layout_toEndOf="@id/network_traffic" />
