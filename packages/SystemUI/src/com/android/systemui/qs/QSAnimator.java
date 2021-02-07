@@ -25,6 +25,7 @@ import com.android.systemui.plugins.qs.QSTile;
 import com.android.systemui.plugins.qs.QSTileView;
 import com.android.systemui.qs.PagedTileLayout.PageListener;
 import com.android.systemui.qs.QSHost.Callback;
+import com.android.systemui.qs.QSPanel;
 import com.android.systemui.qs.QSPanel.QSTileLayout;
 import com.android.systemui.qs.TouchAnimator.Builder;
 import com.android.systemui.qs.TouchAnimator.Listener;
@@ -280,7 +281,7 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
         }
 
         View brightnessView = mQsPanel.getBrightnessView();
-        if (brightnessView != null && !mQsPanel.shouldUseHorizontalLayout()
+        if (brightnessView != null && mQsPanel.mUsingMediaPlayer && !mQsPanel.shouldUseHorizontalLayout()
                 && mQsPanel.isMediaHostVisible()) {
             View mQsPanelMediaHostView = mQsPanel.getMediaHost().getHostView();
             View mQuickQsPanelMediaHostView = mQuickQsPanel.getMediaHost().getHostView();
