@@ -96,7 +96,7 @@ public class QSDetail extends LinearLayout {
         // Update top space height in orientation change
         mQsDetailTopSpace.getLayoutParams().height =
                 mContext.getResources().getDimensionPixelSize(
-                        com.android.internal.R.dimen.quick_qs_offset_height);
+                        R.dimen.qs_detail_offset_height);
         mQsDetailTopSpace.setLayoutParams(mQsDetailTopSpace.getLayoutParams());
     }
 

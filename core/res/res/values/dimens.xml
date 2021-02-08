@@ -55,6 +55,9 @@
          that just start below the notch. -->
     <dimen name="display_cutout_touchable_region_size">12dp</dimen>
 
+     <!-- Define a new dimen for qs detail top padding -->
+    <dimen name="qs_detail_offset_height">40dp</dimen>
+
     <!-- Height of the bottom navigation bar frame; this is different than navigation_bar_height
          where that is the height reported to all the other windows to resize themselves around the
          navigation bar window but navigation_bar_frame_height is reported to SystemUI navigation

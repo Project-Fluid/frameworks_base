@@ -16,5 +16,5 @@
   -->
 <com.android.systemui.media.IlluminationDrawable
     xmlns:systemui="http://schemas.android.com/apk/res-auto"
-    systemui:highlight="15"
+    systemui:highlight="8"
     systemui:cornerRadius="?android:attr/dialogCornerRadius" />
