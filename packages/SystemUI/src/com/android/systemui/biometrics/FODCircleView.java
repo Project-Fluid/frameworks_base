@@ -66,7 +66,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class FODCircleView extends ImageView {
-    private static final int FADE_ANIM_DURATION = 250;
+    private static final int FADE_ANIM_DURATION = 50;
     private final String SCREEN_BRIGHTNESS = Settings.System.SCREEN_BRIGHTNESS;
     private final int[][] BRIGHTNESS_ALPHA_ARRAY = {
         new int[]{0, 255},
@@ -130,6 +130,7 @@ public class FODCircleView extends ImageView {
 
     private FODAnimation mFODAnimation;
     private boolean mIsRecognizingAnimEnabled;
+    private AnimatedVectorDrawable mFodIconAnimatedVectorDrawable;
 
     private IFingerprintInscreenCallback mFingerprintInscreenCallback =
             new IFingerprintInscreenCallback.Stub() {
@@ -234,8 +235,9 @@ public class FODCircleView extends ImageView {
         @Override
         public void onScreenTurnedOn() {
             if (mUpdateMonitor.isFingerprintDetectionRunning()) {
+                setImageDrawable(null);
                 show();
-                triggerFodIconAnimation();
+                mHandler.post(() -> toggleFodIconAnimation());
             }
         }
     };
@@ -577,7 +579,6 @@ public class FODCircleView extends ImageView {
     }
 
     public void hide() {
-
         animate().withStartAction(() -> mFading = true)
                 .alpha(0)
                 .setDuration(FADE_ANIM_DURATION)
@@ -716,10 +717,11 @@ public class FODCircleView extends ImageView {
         }
     };
 
-    public void triggerFodIconAnimation() {
-        AnimatedVectorDrawable fodIconAnimatedVectorDrawable = (AnimatedVectorDrawable) mContext.getDrawable(R.drawable.fod_icon_default_animated);
-        setImageDrawable(fodIconAnimatedVectorDrawable);
-        fodIconAnimatedVectorDrawable.start();
+    public void toggleFodIconAnimation() {
+        mFodIconAnimatedVectorDrawable = (AnimatedVectorDrawable) mContext.getDrawable(
+            R.drawable.fod_icon_default_animated);
+        setImageDrawable(mFodIconAnimatedVectorDrawable);
+        mFodIconAnimatedVectorDrawable.start();
     }
 }
 
