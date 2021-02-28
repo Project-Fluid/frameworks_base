@@ -48,7 +48,6 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
     private final String mSlotWifi;
     private final String mSlotEthernet;
     private final String mSlotVpn;
-    private final String mSlotRoaming;
 
     private final Context mContext;
     private final StatusBarIconController mIconController;
@@ -62,7 +61,6 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
     private boolean mBlockEthernet;
     private boolean mActivityEnabled;
     private boolean mForceBlockWifi;
-    private boolean mBlockRoaming;
     private boolean mBlockVpn;
 
     // Track as little state as possible, and only for padding purposes
@@ -80,7 +78,6 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
         mSlotWifi     = mContext.getString(com.android.internal.R.string.status_bar_wifi);
         mSlotEthernet = mContext.getString(com.android.internal.R.string.status_bar_ethernet);
         mSlotVpn      = mContext.getString(com.android.internal.R.string.status_bar_vpn);
-        mSlotRoaming      = mContext.getString(com.android.internal.R.string.status_bar_roaming);
         mActivityEnabled = mContext.getResources().getBoolean(R.bool.config_showActivity);
 
         mIconController = iconController;
@@ -133,17 +130,15 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
         boolean blockMobile = blockList.contains(mSlotMobile);
         boolean blockWifi = blockList.contains(mSlotWifi);
         boolean blockEthernet = blockList.contains(mSlotEthernet);
-        boolean blockRoaming = blockList.contains(mSlotRoaming);
         boolean blockVpn = blockList.contains(mSlotVpn);
 
         if (blockAirplane != mBlockAirplane || blockMobile != mBlockMobile
                 || blockEthernet != mBlockEthernet || blockWifi != mBlockWifi
-                || blockRoaming != mBlockRoaming || blockVpn != mBlockVpn) {
+                || blockVpn != mBlockVpn) {
             mBlockAirplane = blockAirplane;
             mBlockMobile = blockMobile;
             mBlockEthernet = blockEthernet;
             mBlockWifi = blockWifi || mForceBlockWifi;
-            mBlockRoaming = blockRoaming;
             mBlockVpn = blockVpn;
             // Re-register to get new callbacks.
             mNetworkController.removeCallback(this);
@@ -211,7 +206,7 @@ public class StatusBarSignalPolicy implements NetworkControllerImpl.SignalCallba
         state.typeId = statusType;
         state.contentDescription = statusIcon.contentDescription;
         state.typeContentDescription = typeContentDescription;
-        state.roaming = roaming && !mBlockRoaming;
+        state.roaming = roaming;
         state.activityIn = activityIn && mActivityEnabled;
         state.activityOut = activityOut && mActivityEnabled;
         state.volteId = stackedVoiceId;
