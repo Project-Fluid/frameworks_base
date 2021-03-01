@@ -1227,6 +1227,7 @@ public class NetworkControllerImpl extends BroadcastReceiver
                 config.hideLtePlus = b.getBoolean(
                         CarrierConfigManager.KEY_HIDE_LTE_PLUS_DATA_ICON_BOOL);
             }
+
             return config;
         }
     }
