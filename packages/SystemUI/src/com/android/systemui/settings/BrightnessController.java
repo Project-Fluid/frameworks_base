@@ -97,7 +97,7 @@ public class BrightnessController implements ToggleSlider.Listener {
             new ArrayList<BrightnessStateChangeCallback>();
 
     private volatile boolean mAutomatic;  // Brightness adjusted automatically using ambient light.
-    private volatile boolean mIsVrModeEnabled;
+    public volatile boolean mIsVrModeEnabled;
     private boolean mListening;
     private boolean mExternalChange;
     private boolean mControlValueInitialized;
@@ -400,6 +400,15 @@ public class BrightnessController implements ToggleSlider.Listener {
         final float valFloat = MathUtils.min(convertGammaToLinearFloat(value,
                 minBacklight, maxBacklight),
                 1.0f);
+        float rotation = 360 * valFloat;
+        mIcon.setRotation(rotation);
+        if (mMirrorIcon != null) {
+            mMirrorIcon.setRotation(rotation);
+           }/* else {
+            Log.d("Fluid", "mMirrorIcon is null");
+        }*/
+        //Log.d("Fluid", "brightness: " + String.valueOf(value) + ", rotation: " + String.valueOf(rotation));
+
         if (stopTracking) {
             // TODO(brightnessfloat): change to use float value instead.
             MetricsLogger.action(mContext, metric,

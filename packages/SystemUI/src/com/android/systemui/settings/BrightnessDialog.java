@@ -16,8 +16,13 @@
 
 package com.android.systemui.settings;
 
+import static com.android.settingslib.display.BrightnessUtils.GAMMA_SPACE_MAX;
+import static com.android.settingslib.display.BrightnessUtils.convertGammaToLinearFloat;
+import static com.android.settingslib.display.BrightnessUtils.convertLinearToGammaFloat;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -25,6 +30,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.util.MathUtils;
+import android.util.Log;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
@@ -34,7 +41,7 @@ import com.android.systemui.broadcast.BroadcastDispatcher;
 import javax.inject.Inject;
 
 /** A dialog that provides controls for adjusting the screen brightness. */
-public class BrightnessDialog extends Activity {
+public class BrightnessDialog extends Activity implements ToggleSlider.Listener {
 
     private BrightnessController mBrightnessController;
     private final BroadcastDispatcher mBroadcastDispatcher;
@@ -87,5 +94,28 @@ public class BrightnessDialog extends Activity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onInit(ToggleSlider control) {
+        // Do nothing
+    }
+
+    @Override
+    public void onChanged(ToggleSlider toggleSlider, boolean tracking, boolean automatic,
+            int value, boolean stopTracking) {
+        if (!mBrightnessController.mIsVrModeEnabled) {
+           //Log.d("Fluid", "reached point 2");
+           PowerManager pm = this.getSystemService(PowerManager.class);
+           float maxBacklight = pm.getBrightnessConstraint(PowerManager.BRIGHTNESS_CONSTRAINT_TYPE_MAXIMUM);
+           float minBacklight = pm.getBrightnessConstraint(PowerManager.BRIGHTNESS_CONSTRAINT_TYPE_MINIMUM);
+           final float valFloat = MathUtils.min(convertGammaToLinearFloat(value,
+                   minBacklight, maxBacklight),
+                   1.0f);
+           final float rotation = 360 * valFloat;
+           ImageButton icon = findViewById(R.id.brightness_icon);
+           //Log.d("Fluid", "brightness: " + String.valueOf(value) + ", rotation: " + String.valueOf(rotation));
+           icon.setRotation(rotation);
+        }
     }
 }
