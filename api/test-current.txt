@@ -1230,7 +1230,9 @@ package android.hardware.display {
     ctor public AmbientDisplayConfiguration(android.content.Context);
     method public boolean alwaysOnAvailable();
     method public boolean alwaysOnAvailableForUser(int);
+    method public boolean alwaysOnChargingEnabled(int);
     method public boolean alwaysOnEnabled(int);
+    method public boolean alwaysOnEnabledSetting(int);
   }
 
   public final class BrightnessChangeEvent implements android.os.Parcelable {
@@ -1774,6 +1776,9 @@ package android.media {
     method public static float getMasterBalance();
     method public static final int getNumStreamTypes();
     method public static int setMasterBalance(float);
+    field public static final int AUDIO_FORMAT_APTX_ADAPTIVE = 654311424; // 0x27000000
+    field public static final int AUDIO_FORMAT_APTX_TWSP = 704643072; // 0x2a000000
+    field public static final int AUDIO_FORMAT_CELT = 637534208; // 0x26000000
     field public static final int STREAM_DEFAULT = -1; // 0xffffffff
   }
 
