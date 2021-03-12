@@ -70,9 +70,6 @@
          out of setting a batch size, which fixes rotation. -->
     <bool name="config_useDefaultBatchingForAccel">true</bool>
 
-    <!-- Enable face auth when swiping security view -->
-    <bool name="config_faceAuthOnSecurityView">false</bool>
-
     <!-- Whether to allow process with media UID to access CameraServiceProxy -->
     <bool name="config_allowMediaUidForCameraServiceProxy">false</bool>
 
@@ -111,5 +108,4 @@
 
     <!-- If not zero, limits the internal screen recorder's framerate to the set value. -->
     <integer name="config_screenRecorderMaxFramerate">0</integer>
-
 </resources>
