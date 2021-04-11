@@ -73,7 +73,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
+                android:layout_marginTop="14dp"
                 android:layout_gravity="end">
 
                 <com.android.systemui.statusbar.phone.MultiUserSwitch
@@ -104,6 +104,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
                 android:gravity="end">
 
                 <com.android.systemui.statusbar.phone.StatusIconContainer

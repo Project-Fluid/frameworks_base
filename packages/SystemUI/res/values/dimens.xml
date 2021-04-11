@@ -158,7 +158,7 @@
     <dimen name="notification_max_heads_up_height_increased">188dp</dimen>
 
     <!-- Side padding on the lockscreen on the side of notifications -->
-    <dimen name="notification_side_paddings">16dp</dimen>
+    <dimen name="notification_side_paddings">12dp</dimen>
 
     <!-- padding between the heads up and the statusbar -->
     <dimen name="heads_up_status_bar_padding">8dp</dimen>
@@ -510,15 +510,15 @@
     <dimen name="qs_tile_icon_background_stroke_width">-1dp</dimen>
     <dimen name="qs_tile_background_size">44dp</dimen>
     <dimen name="qs_quick_tile_size">48dp</dimen>
-    <dimen name="qs_quick_tile_padding">12dp</dimen>
+    <dimen name="qs_quick_tile_padding">8dp</dimen>
     <dimen name="qs_header_gear_translation">16dp</dimen>
-    <dimen name="qs_header_tile_margin_bottom">18dp</dimen>
+    <dimen name="qs_header_tile_margin_bottom">16dp</dimen>
     <dimen name="qs_page_indicator_width">16dp</dimen>
     <dimen name="qs_page_indicator_height">8dp</dimen>
     <dimen name="qs_tile_icon_size">20dp</dimen>
     <dimen name="qs_tile_text_size">12sp</dimen>
     <dimen name="qs_tile_divider_height">1dp</dimen>
-    <dimen name="qs_panel_padding">16dp</dimen>
+    <dimen name="qs_panel_padding">8dp</dimen>
     <dimen name="qs_dual_tile_height">112dp</dimen>
     <dimen name="qs_dual_tile_padding_vertical">8dp</dimen>
     <dimen name="qs_dual_tile_padding_horizontal">6dp</dimen>
