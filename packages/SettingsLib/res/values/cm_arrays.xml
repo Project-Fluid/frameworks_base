@@ -28,8 +28,6 @@
         <item>LDAC</item>
         <item><xliff:g id="qualcomm">Qualcomm®</xliff:g> <xliff:g id="aptx_adaptive">aptX™ Adaptive</xliff:g> audio</item>
         <item><xliff:g id="qualcomm">Qualcomm®</xliff:g> <xliff:g id="aptx_twsp">aptX™ TWS+</xliff:g> audio</item>
-        <item>Enable Optional Codecs</item>
-        <item>Disable Optional Codecs</item>
     </string-array>
 
     <!-- Summaries for Bluetooth Audio Codec selection preference. [CHAR LIMIT=50]-->
@@ -42,8 +40,6 @@
         <item>LDAC</item>
         <item><xliff:g id="qualcomm">Qualcomm®</xliff:g> <xliff:g id="aptx_adaptive">aptX™ Adaptive</xliff:g> audio</item>
         <item><xliff:g id="qualcomm">Qualcomm®</xliff:g> <xliff:g id="aptx_twsp">aptX™ TWS+</xliff:g> audio</item>
-        <item>Enable Optional Codecs</item>
-        <item>Disable Optional Codecs</item>
     </string-array>
 
     <!-- Titles for Bluetooth Audio Codec Channel Mode selection preference. [CHAR LIMIT=50] -->
