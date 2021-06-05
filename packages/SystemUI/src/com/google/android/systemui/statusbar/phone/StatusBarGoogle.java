@@ -172,6 +172,7 @@ public class StatusBarGoogle extends StatusBar {
             PluginManager pluginManager,
             Optional<Divider> dividerOptional,
             LightsOutNotifController lightsOutNotifController,
+            FlashlightController flashlightController,
             StatusBarNotificationActivityStarter.Builder
                     statusBarNotificationActivityStarterBuilder,
             ShadeController shadeController,
@@ -189,8 +190,7 @@ public class StatusBarGoogle extends StatusBar {
             KeyguardIndicationController keyguardIndicationController,
             DismissCallbackRegistry dismissCallbackRegistry,
             Lazy<NotificationShadeDepthController> notificationShadeDepthControllerLazy,
-            StatusBarTouchableRegionManager statusBarTouchableRegionManager,
-            FlashlightController flashlightController) {
+            StatusBarTouchableRegionManager statusBarTouchableRegionManager) {
         super(context,
                 notificationsController,
                 lightBarController,
@@ -251,6 +251,7 @@ public class StatusBarGoogle extends StatusBar {
                 pluginManager,
                 dividerOptional,
                 lightsOutNotifController,
+                flashlightController,
                 statusBarNotificationActivityStarterBuilder,
                 shadeController,
                 superStatusBarViewFactory,
@@ -267,8 +268,7 @@ public class StatusBarGoogle extends StatusBar {
                 keyguardIndicationController,
                 dismissCallbackRegistry,
                 notificationShadeDepthControllerLazy,
-                statusBarTouchableRegionManager,
-                flashlightController);
+                statusBarTouchableRegionManager);
         mSmartSpaceController = smartSpaceController;
     }
 
