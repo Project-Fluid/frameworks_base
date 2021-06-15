@@ -84,7 +84,7 @@
     <java-symbol type="bool" name="config_cleanupUnusedFingerprints" />
 
     <!-- Pocket Lock -->
-   <java-symbol type="layout" name="pocket_lock_view" />
+    <java-symbol type="layout" name="pocket_lock_view" />
     <java-symbol type="bool" name="config_pocketUseLightSensor" />
 
     <!-- Pocket bridge -->
@@ -111,4 +111,7 @@
 
     <!-- DC Dimming -->
     <java-symbol type="string" name="config_deviceDcDimmingSysfsNode" />
+
+    <!-- App Lock -->
+    <java-symbol type="string" name="lockscreen_pattern_instructions" />
 </resources>
