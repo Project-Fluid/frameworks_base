@@ -79,7 +79,7 @@
     <dimen name="status_bar_clock_size">14sp</dimen>
 
      <!-- The font size for the clock in the qs header. -->
-    <dimen name="qs_header_clock_size">24dp</dimen>
+    <dimen name="qs_header_clock_size">16dp</dimen>
 
     <!-- The font size for the date in the qs header. -->
     <dimen name="qs_header_date_size">16dp</dimen>
@@ -95,6 +95,9 @@
 
     <!-- End padding for left-aligned status bar clock -->
     <dimen name="status_bar_left_clock_end_padding">4dp</dimen>
+
+     <!-- QS header padding -->
+    <dimen name="qs_header_padding">8dp</dimen>
 
     <!-- Spacing after the wifi signals that is present if there are any icons following it. -->
     <dimen name="status_bar_wifi_signal_spacer_width">2.5dp</dimen>
@@ -155,7 +158,7 @@
     <dimen name="notification_max_heads_up_height_increased">188dp</dimen>
 
     <!-- Side padding on the lockscreen on the side of notifications -->
-    <dimen name="notification_side_paddings">4dp</dimen>
+    <dimen name="notification_side_paddings">16dp</dimen>
 
     <!-- padding between the heads up and the statusbar -->
     <dimen name="heads_up_status_bar_padding">8dp</dimen>
@@ -512,7 +515,7 @@
     <dimen name="qs_header_tile_margin_bottom">18dp</dimen>
     <dimen name="qs_page_indicator_width">16dp</dimen>
     <dimen name="qs_page_indicator_height">8dp</dimen>
-    <dimen name="qs_tile_icon_size">23dp</dimen>
+    <dimen name="qs_tile_icon_size">20dp</dimen>
     <dimen name="qs_tile_text_size">12sp</dimen>
     <dimen name="qs_tile_divider_height">1dp</dimen>
     <dimen name="qs_panel_padding">16dp</dimen>
@@ -568,6 +571,8 @@
 
     <!-- Desired qs icon overlay size. -->
     <dimen name="qs_detail_icon_overlay_size">24dp</dimen>
+
+    <dimen name="qs_media_corner_radius">8dp</dimen>
 
     <dimen name="segmented_button_spacing">0dp</dimen>
     <dimen name="borderless_button_radius">2dp</dimen>
