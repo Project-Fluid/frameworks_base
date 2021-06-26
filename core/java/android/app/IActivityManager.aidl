@@ -690,11 +690,6 @@ interface IActivityManager {
     boolean isSwipeToScreenshotGestureActive();
 
     /**
-     *  Force full screen for devices with cutout
-     */
-    boolean shouldForceCutoutFullscreen(in String packageName);
-
-    /**
      * Control the app freezer state. Returns true in case of success, false if the operation
      * didn't succeed (for example, when the app freezer isn't supported). 
      * Handling the freezer state via this method is reentrant, that is it can be 
