@@ -77,6 +77,11 @@ public class PixelPropsUtils {
         if (packageName.equals("com.google.android.settings.intelligence")){
             setPropValue("FINGERPRINT", Build.VERSION.INCREMENTAL);
         }
+
+	// Alter model name to avoid hardware attestation enforcement
+	if (sIsGms) {
+		setPropValue("MODEL", propsToChange.get("MODEL") + " ");
+	}
     }
 
     private static void setPropValue(String key, Object value){
