@@ -31,7 +31,6 @@ import android.os.UserManager;
 import android.testing.AndroidTestingRunner;
 import android.testing.TestableLooper;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.test.filters.SmallTest;
 
@@ -43,7 +42,6 @@ import com.android.systemui.R;
 import com.android.systemui.classifier.FalsingManagerFake;
 import com.android.systemui.globalactions.GlobalActionsDialogLite;
 import com.android.systemui.plugins.ActivityStarter;
-import com.android.systemui.settings.UserTracker;
 import com.android.systemui.statusbar.phone.MultiUserSwitchController;
 import com.android.systemui.statusbar.phone.SettingsButton;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
@@ -75,8 +73,6 @@ public class QSFooterViewControllerTest extends LeakCheckedTest {
     @Mock
     private UserInfoController mUserInfoController;
     @Mock
-    private UserTracker mUserTracker;
-    @Mock
     private QSPanelController mQSPanelController;
     @Mock
     private ClipboardManager mClipboardManager;
@@ -88,8 +84,6 @@ public class QSFooterViewControllerTest extends LeakCheckedTest {
 
     @Mock
     private SettingsButton mSettingsButton;
-    @Mock
-    private TextView mBuildText;
     @Mock
     private View mEdit;
     @Mock
@@ -116,37 +110,19 @@ public class QSFooterViewControllerTest extends LeakCheckedTest {
 
         when(mView.getContext()).thenReturn(mContext);
         when(mView.getResources()).thenReturn(mContext.getResources());
-        when(mUserTracker.getUserContext()).thenReturn(mContext);
 
         when(mView.isAttachedToWindow()).thenReturn(true);
         when(mView.findViewById(R.id.settings_button)).thenReturn(mSettingsButton);
-        when(mView.findViewById(R.id.build)).thenReturn(mBuildText);
         when(mView.findViewById(android.R.id.edit)).thenReturn(mEdit);
         when(mView.findViewById(R.id.pm_lite)).thenReturn(mPowerMenuLiteView);
 
         mController = new QSFooterViewController(mView, mUserManager, mUserInfoController,
-                mActivityStarter, mDeviceProvisionedController, mUserTracker, mQSPanelController,
+                mActivityStarter, mDeviceProvisionedController, mQSPanelController,
                 mMultiUserSwitchController, mQuickQSPanelController, mFakeTunerService,
                 mMetricsLogger, mFalsingManager, false, mGlobalActionsDialog,
                 mUiEventLogger);
 
         mController.init();
-    }
-
-    @Test
-    public void testBuildTextCopy() {
-        String text = "TEST";
-        ArgumentCaptor<View.OnLongClickListener> onLongClickCaptor =
-                ArgumentCaptor.forClass(View.OnLongClickListener.class);
-
-        verify(mBuildText).setOnLongClickListener(onLongClickCaptor.capture());
-
-        when(mBuildText.getText()).thenReturn(text);
-        onLongClickCaptor.getValue().onLongClick(mBuildText);
-
-        ArgumentCaptor<ClipData> captor = ArgumentCaptor.forClass(ClipData.class);
-        verify(mClipboardManager).setPrimaryClip(captor.capture());
-        assertThat(captor.getValue().getItemAt(0).getText()).isEqualTo(text);
     }
 
     @Test
@@ -166,7 +142,7 @@ public class QSFooterViewControllerTest extends LeakCheckedTest {
     public void testLogPowerMenuClick() {
         // Enable power menu button
         mController = new QSFooterViewController(mView, mUserManager, mUserInfoController,
-                mActivityStarter, mDeviceProvisionedController, mUserTracker, mQSPanelController,
+                mActivityStarter, mDeviceProvisionedController, mQSPanelController,
                 mMultiUserSwitchController, mQuickQSPanelController, mFakeTunerService,
                 mMetricsLogger, new FalsingManagerFake(), true, mGlobalActionsDialog,
                 mUiEventLogger);
