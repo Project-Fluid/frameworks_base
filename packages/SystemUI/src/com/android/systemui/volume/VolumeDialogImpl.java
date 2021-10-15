@@ -92,8 +92,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -127,6 +126,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.projectfluid.ui.widget.FluidVolumeSeekBarLayout;
+
 /**
  * Visual presentation of the volume dialog.
  *
@@ -140,7 +141,7 @@ public class VolumeDialogImpl implements VolumeDialog,
     private static final String TAG = Util.logTag(VolumeDialogImpl.class);
 
     private static final long USER_ATTEMPT_GRACE_PERIOD = 1000;
-    private static final int UPDATE_ANIMATION_DURATION = 80;
+    private static final int UPDATE_ANIMATION_DURATION = 120;
 
     static final int DIALOG_TIMEOUT_MILLIS = 3000;
     static final int DIALOG_SAFETYWARNING_TIMEOUT_MILLIS = 5000;
@@ -192,6 +193,7 @@ public class VolumeDialogImpl implements VolumeDialog,
 
     private ViewGroup mSelectedRingerContainer;
     private ImageView mSelectedRingerIcon;
+    private ImageView mSelectedRingerIconBg;
 
     private ViewGroup mRingerDrawerContainer;
     private ViewGroup mRingerDrawerMute;
@@ -208,8 +210,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private ViewGroup mRingerDrawerNewSelectionBg;
 
     private final ValueAnimator mRingerDrawerIconColorAnimator = ValueAnimator.ofFloat(0f, 1f);
-    private ImageView mRingerDrawerIconAnimatingSelected;
-    private ImageView mRingerDrawerIconAnimatingDeselected;
 
     /**
      * Animates the volume dialog's background drawable bounds upwards, to match the height of the
@@ -225,7 +225,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private CaptionsToggleImageButton mODICaptionsIcon;
     private View mSettingsView;
     private ImageButton mSettingsIcon;
-    private FrameLayout mZenIcon;
     private final List<VolumeRow> mRows = new ArrayList<>();
     private ConfigurableTexts mConfigurableTexts;
     private final SparseBooleanArray mDynamic = new SparseBooleanArray();
@@ -523,10 +522,10 @@ public class VolumeDialogImpl implements VolumeDialog,
         mRinger = mDialog.findViewById(R.id.ringer);
         if (mRinger != null) {
             mRingerIcon = mRinger.findViewById(R.id.ringer_icon);
-            mZenIcon = mRinger.findViewById(R.id.dnd_icon);
         }
 
         mSelectedRingerIcon = mDialog.findViewById(R.id.volume_new_ringer_active_icon);
+        mSelectedRingerIconBg = mDialog.findViewById(R.id.volume_new_ringer_active_icon_bg);
         mSelectedRingerContainer = mDialog.findViewById(
                 R.id.volume_new_ringer_active_icon_container);
 
@@ -723,28 +722,12 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (stream == STREAM_ACCESSIBILITY) {
             row.header.setFilters(new InputFilter[] {new InputFilter.LengthFilter(13)});
         }
-        row.dndIcon = row.view.findViewById(R.id.dnd_icon);
-        row.slider = row.view.findViewById(R.id.volume_row_slider);
+        FluidVolumeSeekBarLayout seekbarLayout = row.view.findViewById(R.id.volume_row_slider_frame);
+        row.slider = seekbarLayout.getSeekBar();
         row.slider.setOnSeekBarChangeListener(new VolumeSeekBarChangeListener(row));
         row.number = row.view.findViewById(R.id.volume_number);
 
         row.anim = null;
-
-        final LayerDrawable seekbarDrawable =
-                (LayerDrawable) mContext.getDrawable(R.drawable.volume_row_seekbar);
-
-        final LayerDrawable seekbarProgressDrawable = (LayerDrawable)
-                ((RoundedCornerProgressDrawable) seekbarDrawable.findDrawableByLayerId(
-                        android.R.id.progress)).getDrawable();
-
-        row.sliderProgressSolid = seekbarProgressDrawable.findDrawableByLayerId(
-                R.id.volume_seekbar_progress_solid);
-        final Drawable sliderProgressIcon = seekbarProgressDrawable.findDrawableByLayerId(
-                        R.id.volume_seekbar_progress_icon);
-        row.sliderProgressIcon = sliderProgressIcon != null ? (AlphaTintDrawableWrapper)
-                ((RotateDrawable) sliderProgressIcon).getDrawable() : null;
-
-        row.slider.setProgressDrawable(seekbarDrawable);
 
         row.icon = row.view.findViewById(R.id.volume_row_icon);
 
@@ -839,30 +822,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         mRingerDrawerNormal.setOnClickListener(
                 new RingerDrawerItemClickListener(RINGER_MODE_NORMAL));
 
-        final int unselectedColor = Utils.getColorAccentDefaultColor(mContext);
-        final int selectedColor = Utils.getColorAttrDefaultColor(
-                mContext, android.R.attr.colorBackgroundFloating);
-
-        // Add an update listener that animates the deselected icon to the unselected color, and the
-        // selected icon to the selected color.
-        mRingerDrawerIconColorAnimator.addUpdateListener(
-                anim -> {
-                    final float currentValue = (float) anim.getAnimatedValue();
-                    final int curUnselectedColor = (int) ArgbEvaluator.getInstance().evaluate(
-                            currentValue, selectedColor, unselectedColor);
-                    final int curSelectedColor = (int) ArgbEvaluator.getInstance().evaluate(
-                            currentValue, unselectedColor, selectedColor);
-
-                    mRingerDrawerIconAnimatingDeselected.setColorFilter(curUnselectedColor);
-                    mRingerDrawerIconAnimatingSelected.setColorFilter(curSelectedColor);
-                });
-        mRingerDrawerIconColorAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                mRingerDrawerIconAnimatingDeselected.clearColorFilter();
-                mRingerDrawerIconAnimatingSelected.clearColorFilter();
-            }
-        });
         mRingerDrawerIconColorAnimator.setDuration(DRAWER_ANIMATION_DURATION_SHORT);
 
         mAnimateUpBackgroundToMatchDrawer.addUpdateListener(valueAnimator -> {
@@ -935,6 +894,8 @@ public class VolumeDialogImpl implements VolumeDialog,
                 ? DRAWER_ANIMATION_DURATION_SHORT
                 : DRAWER_ANIMATION_DURATION;
 
+        mSelectedRingerIconBg.setAlpha(0.16f);
+
         // Animate the drawer up and visible.
         mRingerDrawerContainer.animate()
                 .setInterpolator(Interpolators.FAST_OUT_SLOW_IN)
@@ -992,10 +953,12 @@ public class VolumeDialogImpl implements VolumeDialog,
             return;
         }
 
+        mSelectedRingerIconBg.setAlpha(0f);
+
         // Hide the drawer icon for the selected ringer - it's visible in the ringer button and we
         // don't want to be able to see it while it animates away.
         getDrawerIconViewForMode(mState.ringerModeInternal).setVisibility(INVISIBLE);
-
+        
         mRingerDrawerContainer.animate()
                 .alpha(0f)
                 .setDuration(DRAWER_ANIMATION_DURATION)
@@ -1551,16 +1514,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     }
 
     /**
-     * Toggles enable state of views in a VolumeRow (not including seekbar or icon)
-     * Hides/shows zen icon
-     * @param enable whether to enable volume row views and hide dnd icon
-     */
-    private void enableVolumeRowViewsH(VolumeRow row, boolean enable) {
-        boolean showDndIcon = !enable;
-        row.dndIcon.setVisibility(showDndIcon ? VISIBLE : GONE);
-    }
-
-    /**
      * Toggles enable state of footer/ringer views
      * Hides/shows zen icon
      * @param enable whether to enable ringer views and hide dnd icon
@@ -1568,9 +1521,6 @@ public class VolumeDialogImpl implements VolumeDialog,
     private void enableRingerViewsH(boolean enable) {
         if (mRingerIcon != null) {
             mRingerIcon.setEnabled(enable);
-        }
-        if (mZenIcon != null) {
-            mZenIcon.setVisibility(enable ? GONE : VISIBLE);
         }
     }
 
@@ -1770,7 +1720,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         if (zenMuted) {
             row.tracking = false;
         }
-        enableVolumeRowViewsH(row, !zenMuted);
 
         // update slider
         final boolean enableSlider = !zenMuted;
@@ -1805,7 +1754,10 @@ public class VolumeDialogImpl implements VolumeDialog,
         final ColorStateList inverseTextTint = Utils.getColorAttr(
                 mContext, com.android.internal.R.attr.textColorOnAccent);
 
-        row.sliderProgressSolid.setTintList(colorTint);
+        if (row.sliderProgressSolid != null) {
+            row.sliderProgressSolid.setTintList(colorTint);
+        }
+        
         if (row.sliderBgIcon != null) {
             row.sliderBgIcon.setTintList(colorTint);
         }
@@ -1863,7 +1815,7 @@ public class VolumeDialogImpl implements VolumeDialog,
                 // start/update animation
                 if (row.anim == null) {
                     row.anim = ObjectAnimator.ofInt(row.slider, "progress", progress, newProgress);
-                    row.anim.setInterpolator(new DecelerateInterpolator());
+                    row.anim.setInterpolator(new AccelerateDecelerateInterpolator());
                 } else {
                     row.anim.cancel();
                     row.anim.setIntValues(progress, newProgress);
@@ -2012,7 +1964,7 @@ public class VolumeDialogImpl implements VolumeDialog,
         }
 
         final ColorDrawable solidDrawable = new ColorDrawable(
-                Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.colorSurface));
+                Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.colorPrimary));
 
         final LayerDrawable background = new LayerDrawable(new Drawable[] { solidDrawable });
 
@@ -2294,7 +2246,6 @@ public class VolumeDialogImpl implements VolumeDialog,
         private ObjectAnimator anim;  // slider progress animation for non-touch-related updates
         private int animTargetProgress;
         private int lastAudibleLevel = 1;
-        private FrameLayout dndIcon;
 
         void setIcon(int iconRes, Resources.Theme theme) {
             if (icon != null) {
@@ -2330,16 +2281,13 @@ public class VolumeDialogImpl implements VolumeDialog,
 
             setRingerMode(mClickedRingerMode);
 
-            mRingerDrawerIconAnimatingSelected = getDrawerIconViewForMode(mClickedRingerMode);
-            mRingerDrawerIconAnimatingDeselected = getDrawerIconViewForMode(
-                    mState.ringerModeInternal);
-
             // Begin switching the selected icon and deselected icon colors since the background is
             // going to animate behind the new selection.
             mRingerDrawerIconColorAnimator.start();
 
             mSelectedRingerContainer.setVisibility(View.INVISIBLE);
-            mRingerDrawerNewSelectionBg.setAlpha(1f);
+            mSelectedRingerIconBg.setAlpha(0.16f);
+            mRingerDrawerNewSelectionBg.setAlpha(0.16f);
             mRingerDrawerNewSelectionBg.animate()
                     .setInterpolator(Interpolators.ACCELERATE_DECELERATE)
                     .setDuration(DRAWER_ANIMATION_DURATION_SHORT)
