@@ -43,7 +43,7 @@
             app:contentScrim="?androidprv:attr/colorSurfaceHeader"
             app:maxLines="3"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:scrimAnimationDuration="50"
+            app:scrimAnimationDuration="150"
             app:scrimVisibleHeightTrigger="@dimen/settingslib_scrim_visible_height_trigger"
             app:statusBarScrim="@null"
             app:titleCollapseMode="fade"
