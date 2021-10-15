@@ -379,13 +379,13 @@
 
     <dimen name="volume_dialog_panel_transparent_padding">20dp</dimen>
 
-    <dimen name="volume_dialog_ringer_rows_padding">7dp</dimen>
+    <dimen name="volume_dialog_ringer_rows_padding">4dp</dimen>
 
     <dimen name="volume_dialog_stream_padding">12dp</dimen>
 
-    <dimen name="volume_dialog_panel_width">56dp</dimen>
+    <dimen name="volume_dialog_panel_width">48dp</dimen>
 
-    <dimen name="volume_dialog_panel_width_half">28dp</dimen>
+    <dimen name="volume_dialog_panel_width_half">24dp</dimen>
 
     <dimen name="volume_dialog_slider_width">42dp</dimen>
 
@@ -398,17 +398,15 @@
 
     <dimen name="volume_dialog_track_corner_radius">2dp</dimen>
 
-    <dimen name="volume_dialog_ringer_size">42dp</dimen>
+    <dimen name="volume_dialog_ringer_size">40dp</dimen>
 
     <dimen name="volume_dialog_ringer_icon_padding">20dp</dimen>
 
-    <dimen name="volume_dialog_caption_size">56dp</dimen>
+    <dimen name="volume_dialog_caption_size">48dp</dimen>
 
-    <dimen name="volume_dialog_tap_target_size">42dp</dimen>
+    <dimen name="volume_dialog_tap_target_size">40dp</dimen>
 
-    <dimen name="volume_dialog_spacer">4dp</dimen>
-
-    <dimen name="volume_dialog_row_margin_bottom">8dp</dimen>
+    <dimen name="volume_dialog_spacer">12dp</dimen>
 
     <dimen name="volume_dialog_elevation">9dp</dimen>
 
@@ -419,11 +417,11 @@
     <dimen name="volume_tool_tip_arrow_corner_radius">2dp</dimen>
 
     <!-- Size of each item in the ringer selector drawer. -->
-    <dimen name="volume_ringer_drawer_item_size">42dp</dimen>
-    <dimen name="volume_ringer_drawer_item_size_half">21dp</dimen>
+    <dimen name="volume_ringer_drawer_item_size">40dp</dimen>
+    <dimen name="volume_ringer_drawer_item_size_half">20dp</dimen>
 
     <!-- Size of the icon inside each item in the ringer selector drawer. -->
-    <dimen name="volume_ringer_drawer_icon_size">24dp</dimen>
+    <dimen name="volume_ringer_drawer_icon_size">20dp</dimen>
 
     <dimen name="rounded_corner_content_padding">0dp</dimen>
 
@@ -757,7 +755,7 @@
     <!-- Minimum margin of the notification panel on the side, when being positioned dynamically -->
     <dimen name="notification_panel_min_side_margin">48dp</dimen>
 
-    <dimen name="volume_row_slider_height">192dp</dimen>
+    <dimen name="volume_row_slider_height">128dp</dimen>
 
     <!-- Thickness of the assist disclosure beams -->
     <dimen name="assist_disclosure_thickness">2.5dp</dimen>
@@ -1295,3 +1293,4 @@
 
     <dimen name="keyguard_unfold_translation_x">16dp</dimen>
 </resources>
+
