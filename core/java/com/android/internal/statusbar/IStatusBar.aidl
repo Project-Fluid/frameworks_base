@@ -288,4 +288,9 @@ oneway interface IStatusBar
      * Triggers a GC in the system and status bar.
      */
     void runGcForTest();
+
+    /**
+     * Toggles flashlight of the device
+     */
+    void toggleCameraFlash();
 }
