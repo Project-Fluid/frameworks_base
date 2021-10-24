@@ -1294,4 +1294,7 @@
     <!-- ************************************************************************* -->
 
     <dimen name="keyguard_unfold_translation_x">16dp</dimen>
+
+    <!-- QQS Brightness slider -->
+    <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
 </resources>

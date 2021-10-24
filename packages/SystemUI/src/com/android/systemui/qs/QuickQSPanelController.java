@@ -20,6 +20,8 @@ import static com.android.systemui.media.dagger.MediaModule.QUICK_QS_PANEL;
 import static com.android.systemui.qs.dagger.QSFragmentModule.QQS_FOOTER;
 import static com.android.systemui.qs.dagger.QSFragmentModule.QS_USING_MEDIA_PLAYER;
 
+import android.view.View;
+
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.UiEventLogger;
 import com.android.systemui.R;
@@ -30,6 +32,10 @@ import com.android.systemui.plugins.qs.QSTile;
 import com.android.systemui.qs.customize.QSCustomizerController;
 import com.android.systemui.qs.dagger.QSScope;
 import com.android.systemui.qs.logging.QSLogger;
+import com.android.systemui.settings.brightness.BrightnessController;
+import com.android.systemui.settings.brightness.BrightnessSlider;
+import com.android.systemui.statusbar.policy.BrightnessMirrorController;
+import com.android.systemui.tuner.TunerService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +47,13 @@ import javax.inject.Named;
 @QSScope
 public class QuickQSPanelController extends QSPanelControllerBase<QuickQSPanel> {
 
+    private final TunerService mTunerService;
+    private final BrightnessController mBrightnessController;
+    private final BrightnessSlider.Factory mBrightnessSliderFactory;
+    private final BrightnessSlider mBrightnessSlider;
+
+    private BrightnessMirrorController mBrightnessMirrorController;
+
     private final QSPanel.OnConfigurationChangedListener mOnConfigurationChangedListener =
             newConfig -> {
                 int newMaxTiles = getResources().getInteger(R.integer.quick_qs_panel_max_tiles);
@@ -50,6 +63,8 @@ public class QuickQSPanelController extends QSPanelControllerBase<QuickQSPanel> 
             };
 
     private final FooterActionsController mFooterActionsController;
+    private final BrightnessMirrorController.BrightnessMirrorListener mBrightnessMirrorListener =
+            mirror -> updateBrightnessMirror();
 
     @Inject
     QuickQSPanelController(QuickQSPanel view, QSTileHost qsTileHost,
@@ -58,11 +73,21 @@ public class QuickQSPanelController extends QSPanelControllerBase<QuickQSPanel> 
             @Named(QUICK_QS_PANEL) MediaHost mediaHost,
             MetricsLogger metricsLogger, UiEventLogger uiEventLogger, QSLogger qsLogger,
             DumpManager dumpManager,
-            @Named(QQS_FOOTER) FooterActionsController footerActionsController
+            @Named(QQS_FOOTER) FooterActionsController footerActionsController,
+            TunerService tunerService, BrightnessController.Factory brightnessControllerFactory,
+            BrightnessSlider.Factory brightnessSliderFactory
     ) {
         super(view, qsTileHost, qsCustomizerController, usingMediaPlayer, mediaHost, metricsLogger,
                 uiEventLogger, qsLogger, dumpManager);
         mFooterActionsController = footerActionsController;
+        mTunerService = tunerService;
+        mBrightnessSliderFactory = brightnessSliderFactory;
+
+        mBrightnessSlider = mBrightnessSliderFactory.create(getContext(), mView);
+        mView.setBrightnessView(mBrightnessSlider.getRootView());
+
+        mBrightnessController = brightnessControllerFactory.create(
+                mBrightnessSlider.getIconView(), mBrightnessSlider);
     }
 
     @Override
@@ -73,18 +98,74 @@ public class QuickQSPanelController extends QSPanelControllerBase<QuickQSPanel> 
         mMediaHost.init(MediaHierarchyManager.LOCATION_QQS);
         mFooterActionsController.init();
         mFooterActionsController.refreshVisibility(mShouldUseSplitNotificationShade);
+        mBrightnessSlider.init();
     }
 
     @Override
     protected void onViewAttached() {
         super.onViewAttached();
+
+        mTunerService.addTunable(mView, QSPanel.QS_SHOW_BRIGHTNESS);
+        mTunerService.addTunable(mView, QSPanel.QS_BRIGHTNESS_POSITION_BOTTOM);
+        mTunerService.addTunable(mView, QSPanel.QS_SHOW_AUTO_BRIGHTNESS_BUTTON);
+        mTunerService.addTunable(mView, QuickQSPanel.QQS_BRIGHTNESS_SLIDER);
+
+        mView.setBrightnessRunnable(() -> {
+            mView.updateResources();
+            updateBrightnessMirror();
+        });
+
         mView.addOnConfigurationChangedListener(mOnConfigurationChangedListener);
+        if (mBrightnessMirrorController != null) {
+            mBrightnessMirrorController.addCallback(mBrightnessMirrorListener);
+        }
+
     }
 
     @Override
     protected void onViewDetached() {
         super.onViewDetached();
+        mTunerService.removeTunable(mView);
+        mView.setBrightnessRunnable(null);
         mView.removeOnConfigurationChangedListener(mOnConfigurationChangedListener);
+        if (mBrightnessMirrorController != null) {
+            mBrightnessMirrorController.removeCallback(mBrightnessMirrorListener);
+        }
+    }
+
+    @Override
+    public void setListening(boolean listening) {
+        super.setListening(listening);
+        // Set the listening as soon as the QS fragment starts listening regardless of the
+        //expansion, so it will update the current brightness before the slider is visible.
+        if (listening) {
+            mBrightnessController.registerCallbacks();
+        } else {
+            mBrightnessController.unregisterCallbacks();
+        }
+    }
+
+    @Override
+    public void setBrightnessMirror(BrightnessMirrorController brightnessMirrorController) {
+        mBrightnessMirrorController = brightnessMirrorController;
+        if (mBrightnessMirrorController != null) {
+            mBrightnessMirrorController.removeCallback(mBrightnessMirrorListener);
+        }
+        mBrightnessMirrorController = brightnessMirrorController;
+        if (mBrightnessMirrorController != null) {
+            mBrightnessMirrorController.addCallback(mBrightnessMirrorListener);
+        }
+        updateBrightnessMirror();
+    }
+
+    public View getBrightnessView() {
+        return mView.getBrightnessView();
+    }
+
+    private void updateBrightnessMirror() {
+        if (mBrightnessMirrorController != null) {
+            mBrightnessSlider.setMirrorControllerAndMirror(mBrightnessMirrorController);
+        }
     }
 
     @Override
