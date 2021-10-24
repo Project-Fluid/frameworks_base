@@ -97,6 +97,7 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
     private TouchAnimator mAllPagesDelayedAnimator;
     private TouchAnimator mBrightnessAnimator;
     private TouchAnimator mQQSFooterActionsAnimator;
+    private TouchAnimator mQQSBrightnessAnimator;
     private HeightExpansionAnimator mQQSTileHeightAnimator;
     private HeightExpansionAnimator mOtherTilesExpandAnimator;
 
@@ -462,6 +463,10 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
                     .addFloat(qsBrightness, "sliderScaleY", 0.3f, 1)
                     .addFloat(qqsBrightness, "translationY", 0, translationY)
                     .build();
+            mQQSBrightnessAnimator = new TouchAnimator.Builder()
+                    .addFloat(qqsBrightness, "alpha", 1, 0)
+                    .setEndDelay(.5f)
+                    .build();
         } else if (qsBrightness != null) {
             firstPageBuilder.addFloat(qsBrightness, "translationY",
                     qsBrightness.getMeasuredHeight() * 0.5f, 0);
@@ -474,6 +479,7 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
             mAllViews.add(qsBrightness);
         } else {
             mBrightnessAnimator = null;
+            mQQSBrightnessAnimator = null;
         }
     }
 
@@ -565,6 +571,9 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
             }
             if (mQQSFooterActionsAnimator != null) {
                 mQQSFooterActionsAnimator.setPosition(position);
+            }
+            if (mQQSBrightnessAnimator != null) {
+                mQQSBrightnessAnimator.setPosition(position);
             }
         }
     }
