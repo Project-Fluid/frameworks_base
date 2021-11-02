@@ -15,6 +15,7 @@
  */
 package com.android.internal.util.custom;
 
+import android.app.Application;
 import android.os.Build;
 import android.util.Log;
 
@@ -55,11 +56,15 @@ public class PixelPropsUtils {
         propsToChange.put("FINGERPRINT", "google/redfin/redfin:12/SP2A.220405.003/8210211:user/release-keys");
     }
 
-    public static void setProps(String packageName) {
-        if (packageName == null){
+    public static void setProps(Application app) {
+        final String packageName = app.getPackageName();
+        final String processName = app.getProcessName();
+
+        if (packageName == null) {
             return;
         }
-        if (packageName.equals(PACKAGE_GMS)) {
+        if (packageName.equals(PACKAGE_GMS) &&
+                processName.equals(PACKAGE_GMS + ".unstable")) {
             sIsGms = true;
             setPropValue("TYPE", "userdebug");
         }
