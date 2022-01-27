@@ -41,6 +41,7 @@ public class PixelPropsUtils {
     };
 
     private static final String[] packagesToKeep = {
+	    "com.google.android.ar.core",
 	    "com.google.android.GoogleCameraEng"
     };
 
