@@ -93,7 +93,7 @@ public class Flags {
     /***************************************/
     // 600- status bar
     public static final BooleanFlag COMBINED_STATUS_BAR_SIGNAL_ICONS =
-            new BooleanFlag(601, false);
+            new BooleanFlag(601, true);
 
     /***************************************/
     // 700 - dialer/calls
