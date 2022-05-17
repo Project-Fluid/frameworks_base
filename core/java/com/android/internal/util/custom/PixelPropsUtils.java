@@ -40,6 +40,10 @@ public class PixelPropsUtils {
             "com.netflix.mediaclient"
     };
 
+    private static final String[] packagesToKeep = {
+	    "com.google.android.GoogleCameraEng"
+    };
+
     static {
         propsToChange = new HashMap<>();
         propsToChange.put("BRAND", "google");
@@ -58,7 +62,8 @@ public class PixelPropsUtils {
             sIsGms = true;
             setPropValue("TYPE", "userdebug");
         }
-        if (packageName.startsWith("com.google.") || Arrays.asList(extraPackagesToChange).contains(packageName)){
+        if ((packageName.startsWith("com.google.") || Arrays.asList(extraPackagesToChange).contains(packageName))
+                                                   && !Arrays.asList(packagesToKeep).contains(packageName)) {
             if (DEBUG) Log.d(TAG, "Defining props for: " + packageName);
             for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
                 String key = prop.getKey();
