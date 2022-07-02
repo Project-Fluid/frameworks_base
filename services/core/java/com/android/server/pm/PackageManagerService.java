@@ -1542,8 +1542,6 @@ public class PackageManagerService extends IPackageManager.Stub
 
     private final PackageProperty mPackageProperty = new PackageProperty();
 
-    ArrayList<ComponentName> mDisabledComponentsList;
-
     // Set of pending broadcasts for aggregating enable/disable of components.
     @VisibleForTesting(visibility = Visibility.PACKAGE)
     public static class PendingPackageBroadcasts {
@@ -1721,8 +1719,6 @@ public class PackageManagerService extends IPackageManager.Stub
     @GuardedBy("mLock")
     private final PackageUsage mPackageUsage = new PackageUsage();
     private final CompilerStats mCompilerStats = new CompilerStats();
-
-    private Signature[] mVendorPlatformSignatures = new Signature[0];
 
     private final DomainVerificationConnection mDomainVerificationConnection =
             new DomainVerificationConnection();
@@ -7385,14 +7381,6 @@ public class PackageManagerService extends IPackageManager.Stub
         invalidatePackageInfoCache();
     }
 
-    private static Signature[] createSignatures(String[] hexBytes) {
-        Signature[] sigs = new Signature[hexBytes.length];
-        for (int i = 0; i < sigs.length; i++) {
-            sigs[i] = new Signature(hexBytes[i]);
-        }
-        return sigs;
-    }
-
     public PackageManagerService(Injector injector, boolean onlyCore, boolean factoryTest,
             final String buildFingerprint, final boolean isEngBuild,
             final boolean isUserDebugBuild, final int sdkVersion, final String incrementalVersion) {
@@ -7421,9 +7409,6 @@ public class PackageManagerService extends IPackageManager.Stub
         mMetrics = injector.getDisplayMetrics();
         mInstaller = injector.getInstaller();
         mEnableFreeCacheV2 = SystemProperties.getBoolean("fw.free_cache_v2", true);
-
-        mVendorPlatformSignatures = createSignatures(mContext.getResources().getStringArray(
-                org.lineageos.platform.internal.R.array.config_vendorPlatformSignatures));
 
         // Create sub-components that provide services / data. Order here is important.
         t.traceBegin("createSubComponents");
@@ -8095,20 +8080,6 @@ public class PackageManagerService extends IPackageManager.Stub
                 Slog.i(TAG, "Deferred reconcileAppsData finished " + count + " packages");
             }, "prepareAppData");
 
-            // Disable components marked for disabling at build-time
-            mDisabledComponentsList = new ArrayList<ComponentName>();
-            enableComponents(mContext.getResources().getStringArray(
-                     org.lineageos.platform.internal.R.array.config_deviceDisabledComponents),
-                     false);
-            enableComponents(mContext.getResources().getStringArray(
-                    org.lineageos.platform.internal.R.array.config_globallyDisabledComponents),
-                    false);
-
-            // Enable components marked for forced-enable at build-time
-            enableComponents(mContext.getResources().getStringArray(
-                    org.lineageos.platform.internal.R.array.config_forceEnabledComponents),
-                    true);
-
             // If this is first boot after an OTA, and a normal boot, then
             // we need to clear code cache directories.
             // Note that we do *not* clear the application profiles. These remain valid
@@ -8270,29 +8241,6 @@ public class PackageManagerService extends IPackageManager.Stub
         mServiceStartWithDelay = SystemClock.uptimeMillis() + (60 * 1000L);
 
         Slog.i(TAG, "Fix for b/169414761 is applied");
-    }
-
-    private void enableComponents(String[] components, boolean enable) {
-        // Disable or enable components marked at build-time
-        for (String name : components) {
-            ComponentName cn = ComponentName.unflattenFromString(name);
-            if (!enable) {
-                mDisabledComponentsList.add(cn);
-            }
-            Slog.v(TAG, "Changing enabled state of " + name + " to " + enable);
-            String className = cn.getClassName();
-            PackageSetting pkgSetting = mSettings.mPackages.get(cn.getPackageName());
-            if (pkgSetting == null || pkgSetting.pkg == null
-                    || !AndroidPackageUtils.hasComponentClassName(pkgSetting.pkg, className)) {
-                Slog.w(TAG, "Unable to change enabled state of " + name + " to " + enable);
-                continue;
-            }
-            if (enable) {
-                pkgSetting.enableComponentLPw(className, UserHandle.USER_OWNER);
-            } else {
-                pkgSetting.disableComponentLPw(className, UserHandle.USER_OWNER);
-            }
-        }
     }
 
     /**
@@ -12121,20 +12069,6 @@ public class PackageManagerService extends IPackageManager.Stub
             Trace.traceBegin(TRACE_TAG_PACKAGE_MANAGER, "collectCertificates");
             parsedPackage.setSigningDetails(
                     ParsingPackageUtils.getSigningDetails(parsedPackage, skipVerify));
-            if (compareSignatures(ParsingPackageUtils.getSigningDetails(
-                    parsedPackage, skipVerify).signatures, mVendorPlatformSignatures) ==
-                    PackageManager.SIGNATURE_MATCH) {
-                // Overwrite package signature with our platform signature
-                // if the signature is the vendor's platform signature
-                if (mPlatformPackage != null) {
-                    parsedPackage.setSigningDetails(ParsingPackageUtils.getSigningDetails(
-                            mPlatformPackage, skipVerify));
-                    parsedPackage.setSeInfo(SELinuxMMAC.getSeInfo(
-                            parsedPackage,
-                            parsedPackage.isPrivileged(),
-                            parsedPackage.getTargetSdkVersion()));
-                }
-            }
         } catch (PackageParserException e) {
             throw PackageManagerException.from(e);
         } finally {
@@ -12332,8 +12266,7 @@ public class PackageManagerService extends IPackageManager.Stub
                             null, disabledPkgSetting /* pkgSetting */,
                             null /* disabledPkgSetting */, null /* originalPkgSetting */,
                             null, parseFlags, scanFlags, isPlatformPackage, user, null);
-                    applyPolicy(parsedPackage, parseFlags, scanFlags, mPlatformPackage, true,
-                            mVendorPlatformSignatures);
+                    applyPolicy(parsedPackage, parseFlags, scanFlags, mPlatformPackage, true);
                     final ScanResult scanResult =
                             scanPackageOnlyLI(request, mInjector, mFactoryTest, -1L);
                     if (scanResult.existingSettingCopied && scanResult.request.pkgSetting != null) {
@@ -14113,8 +14046,7 @@ public class PackageManagerService extends IPackageManager.Stub
             } else {
                 isUpdatedSystemApp = disabledPkgSetting != null;
             }
-            applyPolicy(parsedPackage, parseFlags, scanFlags, mPlatformPackage, isUpdatedSystemApp,
-                    mVendorPlatformSignatures);
+            applyPolicy(parsedPackage, parseFlags, scanFlags, mPlatformPackage, isUpdatedSystemApp);
             assertPackageIsValid(parsedPackage, parseFlags, scanFlags);
 
             SharedUserSetting sharedUserSetting = null;
@@ -14868,7 +14800,7 @@ public class PackageManagerService extends IPackageManager.Stub
      */
     private static void applyPolicy(ParsedPackage parsedPackage, final @ParseFlags int parseFlags,
             final @ScanFlags int scanFlags, AndroidPackage platformPkg,
-            boolean isUpdatedSystemApp, Signature[] vendorPlatformSignatures) {
+            boolean isUpdatedSystemApp) {
         if ((scanFlags & SCAN_AS_SYSTEM) != 0) {
             parsedPackage.setSystem(true);
             // TODO(b/135203078): Can this be done in PackageParser? Or just inferred when the flag
@@ -14907,12 +14839,10 @@ public class PackageManagerService extends IPackageManager.Stub
         // Check if the package is signed with the same key as the platform package.
         parsedPackage.setSignedWithPlatformKey(
                 (PLATFORM_PACKAGE_NAME.equals(parsedPackage.getPackageName())
-                        || (platformPkg != null && (compareSignatures(
+                        || (platformPkg != null && compareSignatures(
                         platformPkg.getSigningDetails().signatures,
                         parsedPackage.getSigningDetails().signatures
-                ) == PackageManager.SIGNATURE_MATCH) || (compareSignatures(
-                        vendorPlatformSignatures, parsedPackage.getSigningDetails().signatures) ==
-                        PackageManager.SIGNATURE_MATCH)))
+                ) == PackageManager.SIGNATURE_MATCH))
         );
 
         if (!parsedPackage.isSystem()) {
@@ -24093,12 +24023,6 @@ public class PackageManagerService extends IPackageManager.Stub
     public void setComponentEnabledSetting(ComponentName componentName,
             int newState, int flags, int userId) {
         if (!mUserManager.exists(userId)) return;
-        // Don't allow to enable components marked for disabling at build-time
-        if (mDisabledComponentsList.contains(componentName)) {
-            Slog.d(TAG, "Ignoring attempt to set enabled state of disabled component "
-                    + componentName.flattenToString());
-            return;
-        }
         setEnabledSetting(componentName.getPackageName(),
                 componentName.getClassName(), newState, flags, userId, null);
     }
