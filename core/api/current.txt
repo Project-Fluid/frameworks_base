@@ -30686,6 +30686,7 @@ package android.os {
     method public int getIntProperty(int);
     method public long getLongProperty(int);
     method public boolean isCharging();
+    method public void resetStatistics();
     field public static final String ACTION_CHARGING = "android.os.action.CHARGING";
     field public static final String ACTION_DISCHARGING = "android.os.action.DISCHARGING";
     field public static final int BATTERY_HEALTH_COLD = 7; // 0x7
