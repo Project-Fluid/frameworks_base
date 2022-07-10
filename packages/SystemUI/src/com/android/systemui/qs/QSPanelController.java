@@ -118,7 +118,7 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
         mBrightnessSliderController = brightnessSliderFactory.create(getContext(), mView);
         mView.setBrightnessView(mBrightnessSliderController.getRootView());
 
-        mBrightnessController = brightnessControllerFactory.create(mBrightnessSliderController.getIconView(), mBrightnessSlider);
+        mBrightnessController = brightnessControllerFactory.create(mBrightnessSliderController.getIconView(), mBrightnessSliderController);
         mBrightnessMirrorHandler = new BrightnessMirrorHandler(mBrightnessController);
     }
 
@@ -149,7 +149,6 @@ public class QSPanelController extends QSPanelControllerBase<QSPanel> {
 
         mView.setBrightnessRunnable(() -> {
             mView.updateResources();
-            updateBrightnessMirror();
         });
 
         mView.updateResources();

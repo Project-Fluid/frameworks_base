@@ -186,7 +186,7 @@ public class QSPanel extends LinearLayout implements Tunable {
                         .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom);
             } else {
                 lp.topMargin = mContext.getResources()
-                        .getDimensionPixelSize(R.dimen.quick_qs_brightness_margin_top);
+                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_top);
                 lp.bottomMargin = 0;
             }
             mBrightnessView.setLayoutParams(lp);
@@ -449,7 +449,7 @@ public class QSPanel extends LinearLayout implements Tunable {
 
         if (mBrightnessView != null) {
             boolean bottom = Dependency.get(TunerService.class).getValue(
-                    QS_BRIGHTNESS_POSITION_BOTTOM, 0) == 1;
+                    QS_BRIGHTNESS_POSITION_BOTTOM, 1) == 1;
             if (!mUsingHorizontalLayout) {
                 switchToParent(mBrightnessView, parent, bottom ? index : 0);
                 index++;
