@@ -35,6 +35,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ImageView;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.DrawableWrapper;
+import android.graphics.drawable.LayerDrawable;
 
 import androidx.annotation.VisibleForTesting;
 
@@ -45,6 +48,7 @@ import com.android.systemui.R;
 import com.android.systemui.plugins.qs.DetailAdapter;
 import com.android.systemui.plugins.qs.QSTile;
 import com.android.systemui.settings.brightness.BrightnessSliderController;
+import com.android.systemui.settings.brightness.ToggleSeekBar;
 import com.android.systemui.statusbar.policy.BrightnessMirrorController;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.tuner.TunerService.Tunable;
@@ -171,7 +175,7 @@ public class QSPanel extends LinearLayout implements Tunable {
         addView(view, 0);
         mBrightnessView = view;
         mAutoBrightnessIcon = view.findViewById(R.id.brightness_icon);
-        setBrightnessViewMargin(true);
+        setBrightnessViewMargin(false);
         mMovableContentStartIndex++;
 
     }
@@ -181,13 +185,14 @@ public class QSPanel extends LinearLayout implements Tunable {
             MarginLayoutParams lp = (MarginLayoutParams) mBrightnessView.getLayoutParams();
             if (top) {
                 lp.topMargin = mContext.getResources()
-                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_top);
-                lp.bottomMargin = mContext.getResources()
                         .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom);
+                lp.bottomMargin = mContext.getResources()
+                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_top);
             } else {
                 lp.topMargin = mContext.getResources()
                         .getDimensionPixelSize(R.dimen.qs_brightness_margin_top);
-                lp.bottomMargin = 0;
+                lp.bottomMargin = mContext.getResources()
+                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom);
             }
             mBrightnessView.setLayoutParams(lp);
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2020 The Android Open Source Project
+  ~ Copyright (C) 2022 ProjectFluid
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,15 +15,6 @@
   ~ limitations under the License.
   -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:priv-android="http://schemas.android.com/apk/prv/res/android"
-    android:autoMirrored="true">
-    <item android:id="@+id/slider_foreground"
-        android:height="@dimen/rounded_slider_track_width">
-        <shape>
-            <size android:height="@dimen/rounded_slider_track_width" />
-            <solid android:color="?android:attr/colorAccent" />
-            <corners android:radius="@dimen/rounded_slider_corner_radius"/>
-        </shape>
-    </item>
-</layer-list>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size android:width="48dp" android:height="48dp" />
+</shape>
