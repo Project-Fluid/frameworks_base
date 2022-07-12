@@ -25,7 +25,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.FrameLayout;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
 import androidx.annotation.NonNull;
@@ -36,13 +35,13 @@ import com.android.systemui.Gefingerpoken;
 import com.android.systemui.R;
 
 /**
- * {@code FrameLayout} used to show and manipulate a {@link ToggleSeekBar}.
+ * {@code LinearLayout} used to show and manipulate a {@link FluidToggleSeekBar}.
  *
  */
 public class BrightnessSliderView extends LinearLayout {
 
     @NonNull
-    private ToggleSeekBar mSlider;
+    private FluidToggleSeekBar mSlider;
     private DispatchTouchEventListener mListener;
     private Gefingerpoken mOnInterceptListener;
     @Nullable
@@ -105,7 +104,7 @@ public class BrightnessSliderView extends LinearLayout {
     }
 
     /**
-     * Attaches a listener to the {@link ToggleSeekBar} in the view so changes can be observed
+     * Attaches a listener to the {@link FluidToggleSeekBar} in the view so changes can be observed
      * @param seekListener use {@code null} to remove listener
      */
     public void setOnSeekBarChangeListener(OnSeekBarChangeListener seekListener) {
@@ -115,7 +114,7 @@ public class BrightnessSliderView extends LinearLayout {
     /**
      * Enforces admin rules for toggling auto-brightness and changing value of brightness
      * @param admin
-     * @see ToggleSeekBar#setEnforcedAdmin
+     * @see FluidToggleSeekBar#setEnforcedAdmin
      */
     public void setEnforcedAdmin(RestrictedLockUtils.EnforcedAdmin admin) {
         mSlider.setEnabled(admin == null);
@@ -131,14 +130,14 @@ public class BrightnessSliderView extends LinearLayout {
     }
 
     /**
-     * @return the maximum value of the {@link ToggleSeekBar}.
+     * @return the maximum value of the {@link FluidToggleSeekBar}.
      */
     public int getMax() {
         return mSlider.getMax();
     }
 
     /**
-     * Sets the maximum value of the {@link ToggleSeekBar}.
+     * Sets the maximum value of the {@link FluidToggleSeekBar}.
      * @param max
      */
     public void setMax(int max) {
@@ -146,7 +145,7 @@ public class BrightnessSliderView extends LinearLayout {
     }
 
     /**
-     * Sets the current value of the {@link ToggleSeekBar}.
+     * Sets the current value of the {@link FluidToggleSeekBar}.
      * @param value
      */
     public void setValue(int value) {
@@ -154,7 +153,7 @@ public class BrightnessSliderView extends LinearLayout {
     }
 
     /**
-     * @return the current value of the {@link ToggleSeekBar}
+     * @return the current value of the {@link FluidToggleSeekBar}
      */
     public int getValue() {
         return mSlider.getProgress();
