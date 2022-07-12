@@ -62,7 +62,7 @@
             android:layout_gravity="right"
             android:clipToPadding="false"
             android:translationZ="@dimen/volume_dialog_elevation"
-            android:background="@drawable/rounded_bg_full">
+            android:background="@drawable/volume_rounded_bg_full">
 
             <com.android.systemui.volume.CaptionsToggleImageButton
                 android:id="@+id/odi_captions_icon"

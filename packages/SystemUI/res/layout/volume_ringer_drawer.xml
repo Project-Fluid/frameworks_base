@@ -67,7 +67,7 @@
                     android:layout_width="@dimen/volume_ringer_drawer_icon_size"
                     android:layout_height="@dimen/volume_ringer_drawer_icon_size"
                     android:layout_gravity="center"
-                    android:tint="?android:attr/textColorPrimary"
+                    android:tint="?android:attr/colorAccent"
                     android:src="@drawable/ic_volume_ringer_vibrate" />
 
             </FrameLayout>
@@ -84,7 +84,7 @@
                     android:layout_width="@dimen/volume_ringer_drawer_icon_size"
                     android:layout_height="@dimen/volume_ringer_drawer_icon_size"
                     android:layout_gravity="center"
-                    android:tint="?android:attr/textColorPrimary"
+                    android:tint="?android:attr/colorAccent"
                     android:src="@drawable/ic_volume_ringer_mute" />
 
             </FrameLayout>
@@ -101,7 +101,7 @@
                     android:layout_width="@dimen/volume_ringer_drawer_icon_size"
                     android:layout_height="@dimen/volume_ringer_drawer_icon_size"
                     android:layout_gravity="center"
-                    android:tint="?android:attr/textColorPrimary"
+                    android:tint="?android:attr/colorAccent"
                     android:src="@drawable/ic_volume_ringer" />
 
             </FrameLayout>
@@ -117,15 +117,22 @@
         android:layout_width="@dimen/volume_ringer_drawer_item_size"
         android:layout_height="@dimen/volume_ringer_drawer_item_size"
         android:layout_gravity="bottom|right"
-        android:contentDescription="@string/volume_ringer_change"
-        android:background="@drawable/volume_drawer_selection_bg">
+        android:contentDescription="@string/volume_ringer_change">
+
+        <ImageView
+            android:id="@+id/volume_new_ringer_active_icon_bg"
+            android:layout_width="@dimen/volume_ringer_drawer_item_size"
+            android:layout_height="@dimen/volume_ringer_drawer_item_size"
+            android:layout_gravity="center"
+            android:alpha="0"
+            android:background="@drawable/volume_drawer_selection_bg"/>
 
         <ImageView
             android:id="@+id/volume_new_ringer_active_icon"
             android:layout_width="@dimen/volume_ringer_drawer_icon_size"
             android:layout_height="@dimen/volume_ringer_drawer_icon_size"
             android:layout_gravity="center"
-            android:tint="?android:attr/textColorPrimaryInverse"
+            android:tint="?android:attr/colorAccent"
             android:src="@drawable/ic_volume_media" />
 
     </FrameLayout>
