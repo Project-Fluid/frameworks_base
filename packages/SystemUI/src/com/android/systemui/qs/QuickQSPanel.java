@@ -56,7 +56,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
         }
         mBrightnessView = view;
         mAutoBrightnessIcon = view.findViewById(R.id.brightness_icon);
-        setBrightnessViewMargin(true);
+        setBrightnessViewMargin(false);
         if (mBrightnessView != null) {
             addView(mBrightnessView);
         }

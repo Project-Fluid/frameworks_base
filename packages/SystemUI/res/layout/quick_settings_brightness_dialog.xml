@@ -14,29 +14,46 @@
      limitations under the License.
 -->
 <com.android.systemui.settings.brightness.BrightnessSliderView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/brightness_slider"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/brightness_mirror_height"
-        android:layout_gravity="center"
-        android:contentDescription="@string/accessibility_brightness"
-        android:orientation="horizontal"
-        android:importantForAccessibility="no" >
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/brightness_slider"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/brightness_mirror_height"
+    android:layout_gravity="center"
+    android:contentDescription="@string/accessibility_brightness"
+    android:orientation="horizontal"
+    android:importantForAccessibility="no" >
+
+    <LinearLayout
+        android:id="@+id/brightness_slider_container"
+        android:background="@drawable/brightness_seekbar_bg"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1">
+
+        <ImageButton
+            android:id="@+id/slider_icon"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_brightness"
+            android:background="@drawable/brightness_icon_bg"
+            android:tint="?android:attr/colorAccent"
+            android:layout_marginStart="8dp"
+            android:contentDescription="@null" />
 
         <com.android.systemui.settings.brightness.ToggleSeekBar
             android:id="@+id/slider"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:minHeight="48dp"
             android:thumb="@null"
             android:background="@null"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:progressDrawable="@drawable/brightness_progress_drawable"
-            android:splitTrack="false"
-        />
+            android:splitTrack="false" />
+    </LinearLayout>
 
     <ImageButton
         android:id="@+id/brightness_icon"
@@ -45,8 +62,8 @@
         android:layout_gravity="center_vertical"
         android:background="@drawable/brightness_bg"
         android:src="@drawable/ic_qs_brightness_auto_off_new"
-        android:tint="?android:attr/textColorPrimaryInverse"
+        android:tint="?android:attr/colorAccent"
         android:contentDescription="@null"
-        android:layout_marginStart="20.0dip" />
+        android:layout_marginStart="16dp" />
 
 </com.android.systemui.settings.brightness.BrightnessSliderView>
