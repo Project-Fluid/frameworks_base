@@ -42,6 +42,7 @@ public class PixelPropsUtils {
     };
 
     private static final String[] packagesToKeep = {
+	    PACKAGE_GMS,
 	    "com.google.android.ar.core",
 	    "com.google.android.GoogleCameraEng"
     };
@@ -83,8 +84,9 @@ public class PixelPropsUtils {
             setPropValue("FINGERPRINT", Build.VERSION.INCREMENTAL);
         }
 
-	// Alter model name to avoid hardware attestation enforcement
 	if (sIsGms) {
+		setPropValue("FINGERPRINT", propsToChange.get("FINGERPRINT"));
+		// Alter model name to avoid hardware attestation enforcement
 		setPropValue("MODEL", propsToChange.get("MODEL") + " ");
 	}
     }
