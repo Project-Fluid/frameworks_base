@@ -152,7 +152,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
             mBrightnessView.setVisibility(mQQsSlider && mQsSlider ? VISIBLE : GONE);
         }
         if (QS_BRIGHTNESS_POSITION_BOTTOM.equals(key)) {
-            mBottom = newValue == null || Integer.parseInt(newValue) == 1;
+            boolean mBottom = (newValue == null || Integer.parseInt(newValue) == 1);
             removeView(mBrightnessView);
             addView(mBrightnessView, mBottom ? 1 : 0);
             setBrightnessViewMargin(!mBottom);
