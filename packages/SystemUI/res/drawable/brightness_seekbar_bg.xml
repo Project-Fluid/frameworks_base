@@ -17,5 +17,5 @@
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <corners android:radius="12dp" />
-    <solid android:color="@color/brightness_tiles_bg" />
+    <solid android:color="@color/qs_translucent_bg" />
 </shape>

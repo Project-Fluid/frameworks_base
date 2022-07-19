@@ -20,6 +20,7 @@ import static com.android.systemui.qs.dagger.QSFragmentModule.QS_FOOTER;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.util.Log;
+import android.view.animation.DecelerateInterpolator;
 import android.view.View;
 import android.view.View.OnAttachStateChangeListener;
 import android.view.View.OnLayoutChangeListener;
@@ -97,7 +98,6 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
     private TouchAnimator mAllPagesDelayedAnimator;
     private TouchAnimator mBrightnessAnimator;
     private TouchAnimator mQQSFooterActionsAnimator;
-    private TouchAnimator mQQSBrightnessAnimator;
     private HeightExpansionAnimator mQQSTileHeightAnimator;
     private HeightExpansionAnimator mOtherTilesExpandAnimator;
 
@@ -457,29 +457,21 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
             mAllViews.add(qqsBrightness);
             int translationY = getRelativeTranslationY(qsBrightness, qqsBrightness);
             mBrightnessAnimator = new Builder()
-                    // we need to animate qs brightness even if animation will not be visible,
-                    // as we might start from sliderScaleY set to 0.3 if device was in collapsed QS
-                    // portrait orientation before
-                    .addFloat(qsBrightness, "sliderScaleY", 0.3f, 1)
                     .addFloat(qqsBrightness, "translationY", 0, translationY)
-                    .build();
-            mQQSBrightnessAnimator = new TouchAnimator.Builder()
-                    .addFloat(qqsBrightness, "alpha", 1, 0)
-                    .setEndDelay(.5f)
+                    .setInterpolator(new DecelerateInterpolator(1.2f))
+                    .setEndDelay(0.1f)
                     .build();
         } else if (qsBrightness != null) {
             firstPageBuilder.addFloat(qsBrightness, "translationY",
                     qsBrightness.getMeasuredHeight() * 0.5f, 0);
             mBrightnessAnimator = new Builder()
                     .addFloat(qsBrightness, "alpha", 0, 1)
-                    .addFloat(qsBrightness, "sliderScaleY", 0.3f, 1)
                     .setInterpolator(Interpolators.ALPHA_IN)
                     .setStartDelay(0.3f)
                     .build();
             mAllViews.add(qsBrightness);
         } else {
             mBrightnessAnimator = null;
-            mQQSBrightnessAnimator = null;
         }
     }
 
@@ -571,9 +563,6 @@ public class QSAnimator implements Callback, PageListener, Listener, OnLayoutCha
             }
             if (mQQSFooterActionsAnimator != null) {
                 mQQSFooterActionsAnimator.setPosition(position);
-            }
-            if (mQQSBrightnessAnimator != null) {
-                mQQSBrightnessAnimator.setPosition(position);
             }
         }
     }

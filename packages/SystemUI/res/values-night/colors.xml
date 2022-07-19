@@ -95,6 +95,8 @@
     <!-- Color of background circle of user avatars in quick settings user switcher -->
     <color name="qs_user_switcher_avatar_background">#3C4043</color>
 
+    <color name="qs_translucent_bg">#0FFFFFFF</color>
+
     <!-- Accessibility floating menu -->
     <color name="accessibility_floating_menu_background">#B3000000</color> <!-- 70% -->
 
@@ -106,4 +108,5 @@
     <color name="global_actions_lite_text">@*android:color/foreground_device_default_dark</color>
     <color name="global_actions_lite_emergency_background">@*android:color/surface_dark</color>
     <color name="global_actions_lite_emergency_icon">@*android:color/accent_device_default_dark</color>
+
 </resources>

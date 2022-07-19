@@ -38,7 +38,6 @@
             android:src="@drawable/ic_brightness"
             android:background="@drawable/brightness_icon_bg"
             android:tint="?android:attr/colorAccent"
-            android:layout_marginStart="6dp"
             android:contentDescription="@null" />
 
         <com.android.systemui.settings.brightness.FluidToggleSeekBar
