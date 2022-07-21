@@ -38,7 +38,7 @@
             android:ellipsize="marquee"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:gravity="center"
             android:textColor="@color/global_actions_lite_text"
             android:textAppearance="?android:attr/textAppearanceSmall" />

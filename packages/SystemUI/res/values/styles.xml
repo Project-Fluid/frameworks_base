@@ -378,6 +378,8 @@
         <!-- that would otherwise be intercepted by the Shade. -->
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBlurBehindEnabled">true</item>
+        <item name="android:windowBlurBehindRadius">@dimen/max_window_blur_radius</item>
     </style>
 
     <style name="QSBorderlessButton">
