@@ -43,6 +43,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
 
     private boolean mDisabledByPolicy;
     private int mMaxTiles;
+    private boolean mBottom;
 
     public QuickQSPanel(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -56,7 +57,7 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
         }
         mBrightnessView = view;
         mAutoBrightnessIcon = view.findViewById(R.id.brightness_icon);
-        setBrightnessViewMargin(false);
+        setBrightnessViewMargin(true);
         if (mBrightnessView != null) {
             addView(mBrightnessView);
         }
@@ -66,19 +67,17 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
         return mBrightnessView;
     }
 
-    public void setBrightnessViewMargin(boolean top) {
+    public void setBrightnessViewMargin(boolean bottom) {
         if (mBrightnessView != null) {
             MarginLayoutParams lp = (MarginLayoutParams) mBrightnessView.getLayoutParams();
-            if (top) {
+            if (bottom) {
                 lp.topMargin = mContext.getResources()
-                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_top) / 2;
-                lp.bottomMargin = mContext.getResources()
-                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom) / 2;
+                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom);
+                lp.bottomMargin = 0;
             } else {
-                lp.topMargin = mContext.getResources()
-                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom) / 2;
+                lp.topMargin = 0;
                 lp.bottomMargin = mContext.getResources()
-                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_top) / 2;
+                        .getDimensionPixelSize(R.dimen.qs_brightness_margin_bottom);
             }
             mBrightnessView.setLayoutParams(lp);
         }
@@ -152,10 +151,10 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
             mBrightnessView.setVisibility(mQQsSlider && mQsSlider ? VISIBLE : GONE);
         }
         if (QS_BRIGHTNESS_POSITION_BOTTOM.equals(key)) {
-            boolean mBottom = (newValue == null || Integer.parseInt(newValue) == 1);
+            mBottom = (newValue == null || Integer.parseInt(newValue) == 1);
             removeView(mBrightnessView);
             addView(mBrightnessView, mBottom ? 1 : 0);
-            setBrightnessViewMargin(!mBottom);
+            setBrightnessViewMargin(mBottom);
             if (mBrightnessRunnable != null) {
                 mBrightnessRunnable.run();
             }
@@ -166,6 +165,11 @@ public class QuickQSPanel extends QSPanel implements TunerService.Tunable {
             mAutoBrightnessIcon.setVisibility(
                     mShowAutoBrightnessButton ? VISIBLE : GONE);
         }
+    }
+
+    @Override
+    public void updateResources() {
+        setBrightnessViewMargin(mBottom);
     }
 
     public void setBrightnessRunnable(Runnable runnable) {

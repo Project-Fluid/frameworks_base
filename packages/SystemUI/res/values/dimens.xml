@@ -446,13 +446,13 @@
     <dimen name="qs_tile_margin_vertical">@dimen/qs_tile_margin_horizontal</dimen>
     <dimen name="qs_tile_margin_top_bottom">4dp</dimen>
     <dimen name="qs_brightness_margin_top">8dp</dimen>
-    <dimen name="qs_brightness_margin_bottom">32dp</dimen>
+    <dimen name="qs_brightness_margin_bottom">18dp</dimen>
     <dimen name="qqs_layout_margin_top">16dp</dimen>
     <!-- The height of the qs customize header. Should be
          (qs_panel_padding_top (48dp) +  brightness_mirror_height (48dp) + qs_brightness_margin_top(8dp) + qs_brightness_margin_bottom (24dp)) -
          (Toolbar_minWidth (56dp) + qs_tile_margin_top_bottom (4dp))
     -->
-    <dimen name="qs_customize_header_min_height">68dp</dimen>
+    <dimen name="qs_customize_header_min_height">60dp</dimen>
     <dimen name="qs_customize_internal_side_paddings">8dp</dimen>
     <dimen name="qs_icon_size">20dp</dimen>
     <dimen name="qs_side_view_size">28dp</dimen>
@@ -1294,7 +1294,5 @@
 
     <dimen name="keyguard_unfold_translation_x">16dp</dimen>
 
-    <!-- QQS Brightness slider -->
-    <dimen name="quick_qs_brightness_margin_top">24dp</dimen>
 </resources>
 
