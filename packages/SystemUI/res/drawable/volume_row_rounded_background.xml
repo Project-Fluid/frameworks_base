@@ -18,4 +18,5 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <size android:width="@dimen/volume_dialog_panel_width" />
     <solid android:color="?android:attr/colorPrimary" />
+    <corners android:radius="@dimen/volume_dialog_panel_width_half"/>
 </shape>
