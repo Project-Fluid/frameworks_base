@@ -20,7 +20,7 @@
     android:id="@+id/icon_frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minWidth="48dp"
+    android:minWidth="44dp"
     android:gravity="start|center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="0dp"
@@ -34,7 +34,7 @@
         android:id="@android:id/icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:maxWidth="48dp"
-        app:maxHeight="48dp"/>
+        app:maxWidth="44dp"
+        app:maxHeight="44dp"/>
 
 </LinearLayout>
